@@ -1,0 +1,5 @@
+sudo apt-get install scons
+cd supportlib/
+scons
+cd ..
+sudo python setup.py install
