@@ -35,3 +35,10 @@ class Environment:
                 valid = False
         return valid
 
+    def is_line_valid(self, origin, end):
+        valid = True
+        for obstacle in self.obstacles:
+            if self.collision_checker.line_collides(obstacle, origin, end):
+                valid = False
+        return valid
+

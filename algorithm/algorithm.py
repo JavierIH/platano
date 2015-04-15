@@ -37,6 +37,7 @@ def main():
     hammersley_gen = HammersleyNodeGenerator()
     hammersley_points = hammersley_gen.generate_nodes(env, 200)
 
+
     show = cv2.cvtColor(env.image, cv2.COLOR_GRAY2BGR)
     for point in random_points:
         cv2.circle(show, point, 2, (0, 255, 0), 1)
@@ -51,8 +52,40 @@ def main():
         cv2.circle(show, point, 2, (255, 0, 0), 2)
     cv2.drawContours(show, env.obstacles, -1, (0, 0, 255), 3)
     cv2.imshow("hammersley points", show)
+    #cv2.waitKey(0)
+    #cv2.destroyAllWindows()
+
+    # Generate graph:
+    # --------------------------------------------------------------
+    points = hammersley_points
+    threshold = 50
+    size = len(points)
+    distance_matrix = np.zeros((size, size))
+    for i, origin in enumerate(points):
+        for j, end in enumerate(points):
+            dist = np.linalg.norm(np.array(origin) - np.array(end))
+            if dist <= threshold and env.is_line_valid(origin, end):
+                distance_matrix[i, j] = dist
+            else:
+                distance_matrix[i, j] = -1
+
+    # Draw connections:
+    show = cv2.cvtColor(env.image, cv2.COLOR_GRAY2BGR)
+    for point in points:
+        cv2.circle(show, point, 2, (255, 0, 0), 2)
+    cv2.drawContours(show, env.obstacles, -1, (0, 0, 255))
+
+    for i in range(size):
+        for j in range(size):
+            if distance_matrix[i, j] > 0:
+                origin = points[i]
+                end = points[j]
+                cv2.line(show, origin, end, (255, 255, 0))
+    cv2.imshow("Connections", show)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+
+    print distance_matrix
 
 if __name__ == '__main__':
     main()
