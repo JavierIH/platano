@@ -62,12 +62,14 @@ def main():
     size = len(points)
     distance_matrix = np.zeros((size, size))
     for i, origin in enumerate(points):
-        for j, end in enumerate(points):
+        for j, end in list(enumerate(points))[i:]:
             dist = np.linalg.norm(np.array(origin) - np.array(end))
             if dist <= threshold and env.is_line_valid(origin, end):
                 distance_matrix[i, j] = dist
+                distance_matrix[j, i] = dist
             else:
                 distance_matrix[i, j] = -1
+                distance_matrix[j, i] = -1
 
     # Draw connections:
     show = cv2.cvtColor(env.image, cv2.COLOR_GRAY2BGR)
