@@ -3,6 +3,7 @@ import numpy as np
 
 from RandomNodeGenerator import RandomNodeGenerator
 from HammersleyNodeGenerator import HammersleyNodeGenerator
+from HaltonNodeGenerator import HaltonNodeGenerator
 
 from SimpleCollisionChecker import SimpleCollisionChecker
 
@@ -54,6 +55,8 @@ def main():
     hammersley_gen = HammersleyNodeGenerator()
     hammersley_points = hammersley_gen.generate_nodes(env, 200)
 
+    halton_gen = HaltonNodeGenerator()
+    halton_points = halton_gen.generate_nodes(env, 200)
 
     show = cv2.cvtColor(env.image, cv2.COLOR_GRAY2BGR)
     for point in random_points:
@@ -71,6 +74,15 @@ def main():
     cv2.imshow("hammersley points", show)
     #cv2.waitKey(0)
     #cv2.destroyAllWindows()
+
+    show = cv2.cvtColor(env.image, cv2.COLOR_GRAY2BGR)
+    for point in halton_points:
+        cv2.circle(show, point, 2, (0, 0, 255), 2)
+    cv2.drawContours(show, env.obstacles, -1, (0, 0, 255), 3)
+    cv2.imshow("halton points", show)
+    #cv2.waitKey(0)
+    #cv2.destroyAllWindows()
+
 
     # Generate graph:
     # --------------------------------------------------------------
