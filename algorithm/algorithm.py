@@ -10,6 +10,23 @@ from Environment import Environment
 
 __author__ = 'def'
 
+
+def generate_graph(environment, points, threshold=50):
+    size = len(points)
+    distance_matrix = np.zeros((size, size))
+    for i, origin in enumerate(points):
+        for j, end in list(enumerate(points))[i:]:
+            dist = np.linalg.norm(np.array(origin) - np.array(end))
+            if dist <= threshold and environment.is_line_valid(origin, end):
+                distance_matrix[i, j] = dist
+                distance_matrix[j, i] = dist
+            else:
+                distance_matrix[i, j] = -1
+                distance_matrix[j, i] = -1
+
+    return distance_matrix, size
+
+
 def main():
 
     image_to_load = 'environment_test.png'
@@ -58,18 +75,7 @@ def main():
     # Generate graph:
     # --------------------------------------------------------------
     points = hammersley_points
-    threshold = 50
-    size = len(points)
-    distance_matrix = np.zeros((size, size))
-    for i, origin in enumerate(points):
-        for j, end in list(enumerate(points))[i:]:
-            dist = np.linalg.norm(np.array(origin) - np.array(end))
-            if dist <= threshold and env.is_line_valid(origin, end):
-                distance_matrix[i, j] = dist
-                distance_matrix[j, i] = dist
-            else:
-                distance_matrix[i, j] = -1
-                distance_matrix[j, i] = -1
+    distance_matrix, size = generate_graph(env, points, 50)
 
     # Draw connections:
     show = cv2.cvtColor(env.image, cv2.COLOR_GRAY2BGR)
@@ -78,7 +84,7 @@ def main():
     cv2.drawContours(show, env.obstacles, -1, (0, 0, 255))
 
     for i in range(size):
-        for j in range(size):
+        for j in range(i, size):
             if distance_matrix[i, j] > 0:
                 origin = points[i]
                 end = points[j]
