@@ -2,6 +2,7 @@ import numpy as np
 
 __author__ = 'def'
 
+
 class RandomNodeGenerator:
     def __init__(self):
         pass

@@ -2,6 +2,7 @@ import cv2
 
 __author__ = 'def'
 
+
 class Environment:
     def __init__(self, image_to_load, collision_checker):
         self.image_to_load = image_to_load

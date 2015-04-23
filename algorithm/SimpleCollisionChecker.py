@@ -3,6 +3,7 @@ import numpy as np
 
 __author__ = 'def'
 
+
 class SimpleCollisionChecker:
     def __init__(self):
         pass
