@@ -60,7 +60,7 @@ def getDifferenceToTargetAngle (angle):
         difference-=360
     return(difference)
     
-def getAngleToTarget (x_target, y_target):
+def getTargetAngle (x_target, y_target):
     "Gets the angle to a point target"
     x_robot, y_robot = getRobotPosition()
     
@@ -68,33 +68,51 @@ def getAngleToTarget (x_target, y_target):
     y_gap=y_target-y_robot    
     l_gap=np.sqrt(x_gap**2+y_gap**2)    
         
-    angle=np.arccos(x_gap/l_gap)
+    angle=np.arccos(x_gap/l_gap)*180/3.14159265
+    if y_gap < 0:
+        angle=-angle
+    #if x_gap < 0:
+     #   angle=180-angle
     
     #if y_gap positivo -> angulo positivo
     #if y_gap negativo -> angulo negativo
     #if x_gap positivo -> angulo 
     #if x_gap negativo -> 180-angulo
     
-    #angle_target=np.arctan((y_target-y_robot)/(x_target-x_robot))*180/3.14159265
-    #return angle_target
+    return angle
     
-def turnToTarget (target_angle):
+def turnToTargetAngle (target_angle):
     "Orientates robot to a given angle in the range from -180 to 180"
     while np.abs(getDifferenceToTargetAngle(target_angle)) > 1:    
         amp = getDifferenceToTargetAngle(target_angle)
-        left_motor=(amp/30)+0.25
-        right_motor=-left_motor
+        left_motor=amp/20
+        right_motor=-amp/20
         moveRobot(left_motor,right_motor)
+        #print "Distancia al angulo objetivo: ", getRobotOrientation()
     moveRobot(0,0)
-    
-    
-#def goToTarget (target_x,target_y)
+       
+def goToTarget (target_x,target_y):
+    while(getDistanceToTarget(target_x, target_y)>0.10):
+        turnToTargetAngle (getTargetAngle(target_x,target_y))
+        moveRobot(1,1)
+        time.sleep(0.2)
+        print getDistanceToTarget(target_x, target_y)
+        
+    print "punto!"
+    moveRobot(0,0)
 
-#moveRobot(-0.5,0.5);
+
+#moveRobot(-0.5,0.5);4
 
 printRobotLocation()
-print getAngleToTarget(1,9)
+#print getAngleToTarget(5,5)
 
+
+
+#goToTarget(3,3)
+moveRobot(1,1)
+time.sleep(4)
+moveRobot(0,0)
 
 print "sacabao"
 
