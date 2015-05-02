@@ -93,6 +93,21 @@ def main():
     #print distance_matrix
 
     path = a_algorithm(start, goal, points, distance_matrix)
+    useless_node = True
+    aux = len(path)-1
+    aux2 = aux - 1
+
+    #erase the useless nodes in the path
+    while aux > 0:
+        while useless_node and aux2 > 0:
+            aux2 -= 1
+            useless_node = env.is_line_valid(points[path[aux]], points[path[aux2]])
+            if useless_node:
+                del path[aux2+1]
+                aux -= 1
+        aux = aux2
+        aux2 -= 1
+        useless_node = True
 
     show = cv2.cvtColor(env.image, cv2.COLOR_GRAY2BGR)
     for i in range(len(path)-1):
