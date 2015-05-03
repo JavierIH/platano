@@ -96,20 +96,36 @@ def main():
 
     #print distance_matrix
 
-    # path = a_algorithm(start, goal, points, distance_matrix)
-    #
-    # show = cv2.cvtColor(env.image, cv2.COLOR_GRAY2BGR)
-    # for i in range(len(path)-1):
-    #     origin = points[path[i]]
-    #     end = points[path[i+1]]
-    #     cv2.line(show, origin, end, (0, 0, 255))
-    # for point in points:
-    #     cv2.circle(show, point, 2, (255, 0, 0), 2)
-    # cv2.circle(show, points[start], 2, (0, 255, 0), 2)
-    # cv2.circle(show, points[goal], 2, (255, 255, 255), 2)
-    # cv2.imshow("Path", show)
-    # #cv2.waitKey(0)
-    # cv2.destroyAllWindows()
+    path = a_algorithm(start, goal, points, distance_matrix)
+    useless_node = True
+    aux = len(path)-1
+    aux2 = aux - 1
+
+    #erase the useless nodes in the path
+    while aux > 0:
+        while useless_node and aux2 > 0:
+            aux2 -= 1
+            useless_node = env.is_line_valid(points[path[aux]], points[path[aux2]])
+            if useless_node:
+                del path[aux2+1]
+                aux -= 1
+        aux = aux2
+        aux2 -= 1
+        useless_node = True
+
+    show = cv2.cvtColor(env.image, cv2.COLOR_GRAY2BGR)
+    for i in range(len(path)-1):
+        origin = points[path[i]]
+        end = points[path[i+1]]
+        cv2.line(show, origin, end, (0, 0, 255))
+    for point in points:
+        cv2.circle(show, point, 2, (255, 0, 0), 2)
+    cv2.circle(show, points[start], 2, (0, 255, 0), 2)
+    cv2.circle(show, points[goal], 2, (255, 255, 255), 2)
+    cv2.imshow("Path", show)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
 
 
 
