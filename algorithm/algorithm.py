@@ -8,6 +8,7 @@ from SimpleCollisionChecker import SimpleCollisionChecker
 from CircleCollisionChecker import CircleCollisionChecker
 
 from Environment import Environment
+from DilatedEnvironment import DilatedEnvironment
 
 from a_algorithm import a_algorithm
 
@@ -23,7 +24,9 @@ def main():
     circle_collision_checker = CircleCollisionChecker((400, 640), 10)
     collision_checker = simple_collision_checker
 
-    env = Environment(image_to_load, circle_collision_checker)
+    env1 = Environment(image_to_load, circle_collision_checker)
+    env2 = DilatedEnvironment(image_to_load, collision_checker, 25)
+    env = env2
     cv2.imshow("Loaded img", env.image)
 
     # Ask for the initial point and the goal point
