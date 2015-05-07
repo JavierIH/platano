@@ -44,7 +44,7 @@ class Planner:
             self.node_generator = RandomNodeGenerator()
         elif node_gen_method == 'Hammersley':
             self.node_generator = HammersleyNodeGenerator()
-        elif node_gen_method == 'Hammersley':
+        elif node_gen_method == 'Halton':
             self.node_generator = HaltonNodeGenerator()
         else:
             raise Exception('Node generator requested (%s) not found!'%node_gen_method)
