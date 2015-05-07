@@ -16,7 +16,7 @@ __author__ = 'def'
 
 class Planner:
     def __init__(self, environment_image,
-                 node_gen_method='random', nodes=200, threshold_neighbors='??',
+                 node_gen_method='random', nodes=200, threshold_neighbors=50,
                  collision_method='simple', collision_radius=None):
         """
         :param environment_image: matrix containing the segmented b/w map
@@ -66,7 +66,7 @@ class Planner:
             self.environment = DilatedEnvironment(self.environment_image, self.collision_checker, collision_radius)
 
         # Generate nodes:
-        self.nodes = self.node_generator.generatenodes(self.environment, self.n_nodes)
+        self.nodes = self.node_generator.generate_nodes(self.environment, self.n_nodes)
 
         #points[0] = (int(start[0]), int(start[1]))
         #points[len(points)-1] = (int(goal[0]), int(goal[1]))
@@ -119,7 +119,7 @@ class Planner:
         return path, graph_nodes
 
     def find_path_and_simplify(self, node_origin, node_goal):
-        path, points = self.find_path(node_origin, node_goal)
+        path, points= self.find_path(node_origin, node_goal)
         useless_node = True
         aux = len(path)-1
         aux2 = aux - 1
@@ -136,5 +136,59 @@ class Planner:
             aux2 -= 1
             useless_node = True
 
+        return path, points
+
 if __name__ == '__main__':
-    pass
+    import cv2
+
+    image_to_load = 'environment_test.png'
+
+    planner = Planner(image_to_load, 'Hammersley', 200, 50, 'dilate', 10)
+
+    # Ask for input
+    # Note: second check does not work
+
+    # Ask for the initial point and the goal point
+    print("Los limites del mapa son: ", planner.environment.x_limit, planner.environment.y_limit)
+
+    i_point = [0,0]
+    i_point[0] = int(input("Introduzca la coordenada x del punto inicial:"))
+    i_point[1] = int(input("Introduzca la coordenada y del punto inicial:"))
+    start = tuple(i_point)
+    valid_start = planner.environment.is_valid(start)
+
+    while start[0] < 0 or start[0] > planner.environment.x_limit or start[1] < 0 or start [1] > planner.environment.y_limit or valid_start == False:
+        print("el punto seleccionado no es valido")
+        start[0] = int(input("Introduzca la coordenada x del punto inicial:"))
+        start[1] = int(input("Introduzca la coordenada y del punto inicial:"))
+        valid_start = planner.environment.is_valid(start)
+
+    g_point = [0,0]
+    g_point[0] = int(input("Introduzca la coordenada x del punto final:"))
+    g_point[1] = int(input("Introduzca la coordenada y del punto final:"))
+    goal = tuple(g_point)
+    valid_goal = planner.environment.is_valid(goal)
+
+    while goal[0] < 0 or goal[0] > planner.environment.x_limit or goal[1] < 0 or goal[1] > planner.environment.y_limit or valid_goal == False:
+        print("el punto seleccionado no es valido")
+        goal[0] = int(input("Introduzca la coordenada x del punto final:"))
+        goal[1] = int(input("Introduzca la coordenada y del punto final:"))
+        valid_goal = planner.environment.is_valid(goal)
+
+    # Calculate path
+    # path, points = planner.find_path_and_simplify(start, goal)
+    path, points = planner.find_path(start, goal)
+
+    # Draw paths
+    show = cv2.cvtColor(planner.environment.image, cv2.COLOR_GRAY2BGR)
+    for i in range(len(path)-1):
+        origin = points[path[i]]
+        end = points[path[i+1]]
+        cv2.line(show, origin, end, (0, 0, 255))
+    for point in points:
+        cv2.circle(show, point, 2, (255, 0, 0), 2)
+    cv2.circle(show, points[0], 2, (0, 255, 0), 2)
+    cv2.circle(show, points[len(points)-1], 2, (255, 255, 255), 2)
+    cv2.imshow("Path", show)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
