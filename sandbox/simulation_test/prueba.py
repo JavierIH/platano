@@ -6,6 +6,7 @@ Test para probar V-Rep con python
 import time
 import vrep
 import numpy as np
+import matplotlib.pyplot as mlp
    
 print ('Program started')
 vrep.simxFinish(-1) 
@@ -17,6 +18,7 @@ else:
 
 error,motorFL=vrep.simxGetObjectHandle(clientID,'Pioneer_p3dx_rightMotor',vrep.simx_opmode_oneshot_wait)
 error,motorFR=vrep.simxGetObjectHandle(clientID,'Pioneer_p3dx_leftMotor',vrep.simx_opmode_oneshot_wait)
+error,camera=vrep.simxGetObjectHandle(clientID,'Vision_sensor',vrep.simx_opmode_oneshot_wait)
 error,robot=vrep.simxGetObjectHandle(clientID,'Pioneer_p3dx',vrep.simx_opmode_oneshot_wait)
 
 def moveRobot (left, right):
@@ -108,11 +110,18 @@ printRobotLocation()
 #print getAngleToTarget(5,5)
 
 
+errorCode, resolution, image=vrep.simxGetVisionSensorImage(clientID, camera, 0, vrep.simx_opmode_streaming)
 
-#goToTarget(3,3)
-moveRobot(1,1)
-time.sleep(4)
-moveRobot(0,0)
+errorCode, resolution, image=vrep.simxGetVisionSensorImage(clientID, camera, 0, vrep.simx_opmode_buffer)
+
+im=np.array(image, dtype=np.uint8)
+im.resize([resolution[1], resolution[0],3])
+
+
+time.sleep(5);
+
+goToTarget(3,3)
+
 
 print "sacabao"
 
