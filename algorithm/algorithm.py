@@ -11,6 +11,8 @@ from Environment import Environment
 
 from a_algorithm import a_algorithm
 
+from dijkstra import dijkstra
+
 __author__ = 'def'
 
 
@@ -61,7 +63,7 @@ def main():
     #----------------------------------
     show = cv2.cvtColor(env.image, cv2.COLOR_GRAY2BGR)
     cv2.drawContours(show, env.obstacles, -1, (0, 0, 255), 3)
-    cv2.imshow("Obstacles", show)
+    #cv2.imshow("Obstacles", show)
     #cv2.waitKey(0)
     #cv2.destroyAllWindows()
 
@@ -77,7 +79,7 @@ def main():
     for point in random_points:
         cv2.circle(show, point, 2, (0, 255, 0), 1)
     cv2.drawContours(show, env.obstacles, -1, (0, 0, 255), 3)
-    cv2.imshow("Random points", show)
+    #cv2.imshow("Random points", show)
     #cv2.waitKey(0)
     #cv2.destroyAllWindows()
 
@@ -86,7 +88,7 @@ def main():
     for point in hammersley_points:
         cv2.circle(show, point, 2, (255, 0, 0), 2)
     cv2.drawContours(show, env.obstacles, -1, (0, 0, 255), 3)
-    cv2.imshow("hammersley points", show)
+    #cv2.imshow("hammersley points", show)
     #cv2.waitKey(0)
     #cv2.destroyAllWindows()
 
@@ -117,28 +119,29 @@ def main():
                 origin = points[i]
                 end = points[j]
                 cv2.line(show, origin, end, (255, 255, 0))
-    cv2.imshow("Connections", show)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    #cv2.imshow("Connections", show)
+    #cv2.waitKey(0)
+    #cv2.destroyAllWindows()
 
     #print distance_matrix
 
-    path = a_algorithm(0, len(points)-1, points, distance_matrix)
+    #path = a_algorithm(0, len(points)-1, points, distance_matrix)
+    path = dijkstra(0, len(points)-1, distance_matrix, points)
     useless_node = True
     aux = len(path)-1
     aux2 = aux - 1
 
     # erase the useless nodes in the path
-    while aux > 0:
-        while useless_node and aux2 > 0:
-            aux2 -= 1
-            useless_node = env.is_line_valid(points[path[aux]], points[path[aux2]])
-            if useless_node:
-                del path[aux2+1]
-                aux -= 1
-        aux = aux2
-        aux2 -= 1
-        useless_node = True
+    #while aux > 0:
+    #    while useless_node and aux2 > 0:
+    #        aux2 -= 1
+    #        useless_node = env.is_line_valid(points[path[aux]], points[path[aux2]])
+    #        if useless_node:
+    #            del path[aux2+1]
+    #            aux -= 1
+    #    aux = aux2
+    #    aux2 -= 1
+    #    useless_node = True
 
     show = cv2.cvtColor(env.image, cv2.COLOR_GRAY2BGR)
     for i in range(len(path)-1):
