@@ -84,18 +84,42 @@ class Planner:
     def find_path(self, node_origin, node_goal):
         """
         Finds the shortest path between node_origin and node_goal
-        :return: A list of points containing the shortest path
+        :return: A list of points containing the shortest path and the graph
+        extended with origin and goal nodes
         """
 
         # Put origin and goal in the graph
+        graph_nodes = list(self.nodes)
+        graph_nodes.insert(0, node_origin)
+        graph_nodes.append(node_goal)
+
+        # Recalculate connection matrix:
+        size = len(graph_nodes)
+        connection_matrix = np.zeros((size, size))
+        connection_matrix[1:-1,1:-1] = self.distance_matrix
+
+        for j, end in enumerate(graph_nodes):
+            # Calculate connections to origin node:
+            dist_origin = np.linalg.norm(np.array(graph_nodes[0]) - np.array(end))
+            if dist_origin <= self.threshold_neighbors and self.environment.is_line_valid(graph_nodes[0], end):
+                connection_matrix[0, j] = dist_origin
+            else:
+                connection_matrix[0, j] = -1
+
+            # Calculate connections to goal node:
+            dist_goal = np.linalg.norm(np.array(graph_nodes[-1]) - np.array(end))
+            if dist_goal <= self.threshold_neighbors and self.environment.is_line_valid(graph_nodes[-1], end):
+                connection_matrix[-1, j] = dist_goal
+            else:
+                connection_matrix[-1, j] = -1
 
         # Calculate shortest path using A*
-        path = a_algorithm(0, len(self.nodes)-1, self.nodes, self.distance_matrix)
+        path = a_algorithm(0, len(graph_nodes)-1, graph_nodes, connection_matrix)
 
-        return []
+        return path, graph_nodes
 
     def find_path_and_simplify(self, node_origin, node_goal):
-        path = self.find_path(node_origin, node_goal)
+        path, points = self.find_path(node_origin, node_goal)
         useless_node = True
         aux = len(path)-1
         aux2 = aux - 1
