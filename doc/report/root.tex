@@ -1,0 +1,76 @@
+\documentclass{article}
+
+
+% General imports:
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}	% For using icelandic Thorn character
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+% Support for spanish:
+\usepackage[spanish]{babel}
+
+% Imports for images
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{wrapfig}
+
+% Imports for euro symbol support
+\usepackage[official]{eurosym}
+\DeclareUnicodeCharacter{20AC}{\euro{}}
+
+% Other imports:
+\usepackage{indentfirst} % Indent first paragraph
+\usepackage[nottoc,numbib]{tocbibind} % Add bibliography to table of contents
+\usepackage{url}	% Cite URLs
+
+% Formatting margins of the pages:
+\usepackage[top=2.3cm, bottom=2.29cm, left=1.6cm, right=1.47cm]{geometry}
+
+% Import for headers
+\usepackage{fancyhdr}
+
+% Definitions of important data
+\renewcommand{\author}{David Estévez Fernández\\Enrique Fernández Rodicio\\Javier Isabel Hernández}
+\renewcommand{\title}{??}
+\newcommand{\department}{Máster Universitario de Robótica y Automatización\\Planificación de tareas y movimientos de robots}
+\newcommand{\teacher}{Alberto Jardón Huete\\Ramón Barber Castaño}
+
+
+
+% Each chapter will have its own header
+%\newcommand{\headchapter}[1]{\chapter{#1}\rhead{#1}}
+
+% Each section will have its own header
+%\newcommand{\headsection}[1]{\section{#1}}\rhead{#1}}
+
+% Change 'Chapter' to something more logical
+%\renewcommand{\chaptername}{}
+
+
+\begin{document}
+
+%%%% FRONTPAGE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{frontpage}
+\frontpage{\department}{\title}{\author}{\teacher}
+
+% Adding some header text on top of the page:
+\lhead{}
+\chead{}
+\rhead{\title}
+\pagestyle{fancy}
+
+
+%%%%%%Table of contents%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents
+\newpage
+
+%%%% Different Sections %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\input{introduccion}
+
+%%%% Bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newpage
+%\bibliographystyle{plain}
+%\bibliography{Bibliography.bib}
+
+\end{document}
