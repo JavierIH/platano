@@ -51,6 +51,4 @@ def a_algorithm(start, goal, points, dist):
             if node_conections[i][0] == current:
                 current = node_conections[i][1]
                 path.append(current)
-
-    print("Fin del algoritmo")
     return path

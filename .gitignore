@@ -1,2 +1,6 @@
 .idea
-.pyc
+*.pyc
+*.toc
+*.log
+*.aux
+*synctex.gz
