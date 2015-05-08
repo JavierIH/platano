@@ -12,6 +12,8 @@ from DilatedEnvironment import DilatedEnvironment
 
 from a_algorithm import a_algorithm
 
+from dijkstra import dijkstra
+
 __author__ = 'def'
 
 
@@ -26,7 +28,7 @@ def main():
 
     env1 = Environment(image_to_load, circle_collision_checker)
     env2 = DilatedEnvironment(image_to_load, collision_checker, 25)
-    env = env2
+    env = env1
     cv2.imshow("Loaded img", env.image)
 
     # Ask for the initial point and the goal point
@@ -40,8 +42,9 @@ def main():
 
     while start[0] < 0 or start[0] > env.x_limit or start[1] < 0 or start [1] > env.y_limit or valid_start == False:
         print("el punto seleccionado no es valido")
-        start[0] = int(input("Introduzca la coordenada x del punto inicial:"))
-        start[1] = int(input("Introduzca la coordenada y del punto inicial:"))
+        i_point[0] = int(input("Introduzca la coordenada x del punto inicial:"))
+        i_point[1] = int(input("Introduzca la coordenada y del punto inicial:"))
+        start = tuple(i_point)
         valid_start = env.is_valid(start)
 
     g_point = np.zeros((2, 1))
@@ -52,8 +55,9 @@ def main():
 
     while goal[0] < 0 or goal[0] > env.x_limit or goal[1] < 0 or goal[1] > env.y_limit or valid_goal == False:
         print("el punto seleccionado no es valido")
-        goal[0] = int(input("Introduzca la coordenada x del punto final:"))
-        goal[1] = int(input("Introduzca la coordenada y del punto final:"))
+        g_point[0] = int(input("Introduzca la coordenada x del punto final:"))
+        g_point[1] = int(input("Introduzca la coordenada y del punto final:"))
+        goal = tuple(g_point)
         valid_goal = env.is_valid(goal)
 
     #cv2.waitKey(0)
@@ -64,7 +68,7 @@ def main():
     #----------------------------------
     show = cv2.cvtColor(env.image, cv2.COLOR_GRAY2BGR)
     cv2.drawContours(show, env.obstacles, -1, (0, 0, 255), 3)
-    cv2.imshow("Obstacles", show)
+    #cv2.imshow("Obstacles", show)
     #cv2.waitKey(0)
     #cv2.destroyAllWindows()
 
@@ -80,7 +84,7 @@ def main():
     for point in random_points:
         cv2.circle(show, point, 2, (0, 255, 0), 1)
     cv2.drawContours(show, env.obstacles, -1, (0, 0, 255), 3)
-    cv2.imshow("Random points", show)
+    #cv2.imshow("Random points", show)
     #cv2.waitKey(0)
     #cv2.destroyAllWindows()
 
@@ -89,7 +93,7 @@ def main():
     for point in hammersley_points:
         cv2.circle(show, point, 2, (255, 0, 0), 2)
     cv2.drawContours(show, env.obstacles, -1, (0, 0, 255), 3)
-    cv2.imshow("hammersley points", show)
+    #cv2.imshow("hammersley points", show)
     #cv2.waitKey(0)
     #cv2.destroyAllWindows()
 
@@ -120,13 +124,14 @@ def main():
                 origin = points[i]
                 end = points[j]
                 cv2.line(show, origin, end, (255, 255, 0))
-    cv2.imshow("Connections", show)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    #cv2.imshow("Connections", show)
+    #cv2.waitKey(0)
+    #cv2.destroyAllWindows()
 
     #print distance_matrix
 
     path = a_algorithm(0, len(points)-1, points, distance_matrix)
+    #path = dijkstra(0, len(points)-1, distance_matrix, points)
     useless_node = True
     aux = len(path)-1
     aux2 = aux - 1
@@ -155,8 +160,6 @@ def main():
     cv2.imshow("Path", show)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
-
-
 
 
 if __name__ == '__main__':

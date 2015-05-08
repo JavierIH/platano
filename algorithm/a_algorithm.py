@@ -46,9 +46,12 @@ def a_algorithm(start, goal, points, dist):
         nodes -= 1
 
     path.append(current)
-    while current != start:
-        for i in range(len(node_conections)):
-            if node_conections[i][0] == current:
-                current = node_conections[i][1]
-                path.append(current)
+    if current == goal:
+        while current != start:
+            for i in range(len(node_conections)):
+                if node_conections[i][0] == current:
+                    current = node_conections[i][1]
+                    path.append(current)
+    else:
+        print "No existe una trayectoria directa entre los nodos inicial y final"
     return path

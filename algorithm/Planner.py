@@ -9,6 +9,7 @@ from Environment import Environment
 from DilatedEnvironment import DilatedEnvironment
 
 from a_algorithm import a_algorithm
+from dijkstra import dijkstra
 
 import numpy as np
 
@@ -44,7 +45,7 @@ class Planner:
             self.node_generator = RandomNodeGenerator()
         elif node_gen_method == 'Hammersley':
             self.node_generator = HammersleyNodeGenerator()
-        elif node_gen_method == 'Hammersley':
+        elif node_gen_method == 'Halton':
             self.node_generator = HaltonNodeGenerator()
         else:
             raise Exception('Node generator requested (%s) not found!'%node_gen_method)
@@ -81,9 +82,14 @@ class Planner:
                     self.distance_matrix[i, j] = -1
 
 
-    def find_path(self, node_origin, node_goal):
+    def find_path(self, node_origin, node_goal, algorithm):
         """
         Finds the shortest path between node_origin and node_goal
+        :param: node_origin: starting point
+        :param: node_goal: target point
+        :param: algorithm: algorithm used for finding the shortest path
+            'a_algorithm' -> A* algorithm
+            'dijkstra' -> Dijkstra's algorithm
         :return: A list of points containing the shortest path and the graph
         extended with origin and goal nodes
         """
@@ -109,31 +115,34 @@ class Planner:
             # Calculate connections to goal node:
             dist_goal = np.linalg.norm(np.array(graph_nodes[-1]) - np.array(end))
             if dist_goal <= self.threshold_neighbors and self.environment.is_line_valid(graph_nodes[-1], end):
-                connection_matrix[-1, j] = dist_goal
+                connection_matrix[j, -1] = dist_goal
             else:
-                connection_matrix[-1, j] = -1
+                connection_matrix[j, -1] = -1
 
-        # Calculate shortest path using A*
-        path = a_algorithm(0, len(graph_nodes)-1, graph_nodes, connection_matrix)
+        if algorithm == 'a_algorithm':
+            # Calculate shortest path using A*
+            path = a_algorithm(0, len(graph_nodes)-1, graph_nodes, connection_matrix)
+        elif algorithm == 'dijkstra':
+            path = dijkstra(0, len(points)-1, connection_matrix, points)
 
         return path, graph_nodes
 
-    def find_path_and_simplify(self, node_origin, node_goal):
-        path, points= self.find_path(node_origin, node_goal)
+    def find_path_and_simplify(self, node_origin, node_goal, algorithm='a_algorithm'):
+        path, points= self.find_path(node_origin, node_goal, algorithm)
         useless_node = True
-        aux = len(path)-1
-        aux2 = aux - 1
+        i = len(path)-1
+        j = i - 1
 
         # erase the useless nodes in the path
-        while aux > 0:
-            while useless_node and aux2 > 0:
-                aux2 -= 1
-                useless_node = self.environment.is_line_valid(points[path[aux]], points[path[aux2]])
+        while i > 0:
+            while useless_node and j > 0:
+                j -= 1
+                useless_node = self.environment.is_line_valid(points[path[i]], points[path[j]])
                 if useless_node:
-                    del path[aux2+1]
-                    aux -= 1
-            aux = aux2
-            aux2 -= 1
+                    del path[j+1]
+                    i -= 1
+            i = j
+            j -= 1
             useless_node = True
 
         return path, points
@@ -145,39 +154,50 @@ if __name__ == '__main__':
 
     planner = Planner(image_to_load, 'Hammersley', 200, 50, 'dilate', 10)
 
+    show = cv2.cvtColor(planner.environment.image, cv2.COLOR_GRAY2BGR)
+    for point in planner.nodes:
+        cv2.circle(show, point, 2, (255, 0, 0), 2)
+    cv2.drawContours(show, planner.environment.obstacles, -1, (0, 0, 255))
+
+    for i, origin in enumerate(planner.nodes):
+        for j, end in enumerate(planner.nodes):
+            if planner.distance_matrix[i, j] > 0:
+                cv2.line(show, origin, end, (255, 255, 0))
+    cv2.imshow("Connections", show)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
     # Ask for input
     # Note: second check does not work
 
     # Ask for the initial point and the goal point
     print("Los limites del mapa son: ", planner.environment.x_limit, planner.environment.y_limit)
 
-    i_point = [0,0]
-    i_point[0] = int(input("Introduzca la coordenada x del punto inicial:"))
-    i_point[1] = int(input("Introduzca la coordenada y del punto inicial:"))
-    start = tuple(i_point)
-    valid_start = planner.environment.is_valid(start)
+    start = [0,0]
+    start[0] = int(input("Introduzca la coordenada x del punto inicial:"))
+    start[1] = int(input("Introduzca la coordenada y del punto inicial:"))
+    valid_start = planner.environment.is_valid(tuple(start))
 
     while start[0] < 0 or start[0] > planner.environment.x_limit or start[1] < 0 or start [1] > planner.environment.y_limit or valid_start == False:
         print("el punto seleccionado no es valido")
         start[0] = int(input("Introduzca la coordenada x del punto inicial:"))
         start[1] = int(input("Introduzca la coordenada y del punto inicial:"))
-        valid_start = planner.environment.is_valid(start)
+        valid_start = planner.environment.is_valid(tuple(start))
 
-    g_point = [0,0]
-    g_point[0] = int(input("Introduzca la coordenada x del punto final:"))
-    g_point[1] = int(input("Introduzca la coordenada y del punto final:"))
-    goal = tuple(g_point)
-    valid_goal = planner.environment.is_valid(goal)
+    goal = [0,0]
+    goal[0] = int(input("Introduzca la coordenada x del punto final:"))
+    goal[1] = int(input("Introduzca la coordenada y del punto final:"))
+    valid_goal = planner.environment.is_valid(tuple(goal))
 
     while goal[0] < 0 or goal[0] > planner.environment.x_limit or goal[1] < 0 or goal[1] > planner.environment.y_limit or valid_goal == False:
         print("el punto seleccionado no es valido")
         goal[0] = int(input("Introduzca la coordenada x del punto final:"))
         goal[1] = int(input("Introduzca la coordenada y del punto final:"))
-        valid_goal = planner.environment.is_valid(goal)
+        valid_goal = planner.environment.is_valid(tuple(goal))
 
     # Calculate path
-    # path, points = planner.find_path_and_simplify(start, goal)
-    path, points = planner.find_path(start, goal)
+    path, points = planner.find_path_and_simplify(tuple(start), tuple(goal))
+    #path, points = planner.find_path(tuple(start), tuple(goal))
 
     # Draw paths
     show = cv2.cvtColor(planner.environment.image, cv2.COLOR_GRAY2BGR)
