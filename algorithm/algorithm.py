@@ -28,7 +28,7 @@ def main():
 
     env1 = Environment(image_to_load, circle_collision_checker)
     env2 = DilatedEnvironment(image_to_load, collision_checker, 25)
-    env = env2
+    env = env1
     cv2.imshow("Loaded img", env.image)
 
     # Ask for the initial point and the goal point
@@ -130,23 +130,23 @@ def main():
 
     #print distance_matrix
 
-    #path = a_algorithm(0, len(points)-1, points, distance_matrix)
-    path = dijkstra(0, len(points)-1, distance_matrix, points)
+    path = a_algorithm(0, len(points)-1, points, distance_matrix)
+    #path = dijkstra(0, len(points)-1, distance_matrix, points)
     useless_node = True
     aux = len(path)-1
     aux2 = aux - 1
 
     # erase the useless nodes in the path
-    #while aux > 0:
-    #    while useless_node and aux2 > 0:
-    #        aux2 -= 1
-    #        useless_node = env.is_line_valid(points[path[aux]], points[path[aux2]])
-    #        if useless_node:
-    #            del path[aux2+1]
-    #            aux -= 1
-    #    aux = aux2
-    #    aux2 -= 1
-    #    useless_node = True
+    while aux > 0:
+        while useless_node and aux2 > 0:
+            aux2 -= 1
+            useless_node = env.is_line_valid(points[path[aux]], points[path[aux2]])
+            if useless_node:
+                del path[aux2+1]
+                aux -= 1
+        aux = aux2
+        aux2 -= 1
+        useless_node = True
 
     show = cv2.cvtColor(env.image, cv2.COLOR_GRAY2BGR)
     for i in range(len(path)-1):
