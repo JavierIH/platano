@@ -9,6 +9,7 @@ from Environment import Environment
 from DilatedEnvironment import DilatedEnvironment
 
 from a_algorithm import a_algorithm
+from dijkstra import dijkstra
 
 import numpy as np
 
@@ -81,9 +82,14 @@ class Planner:
                     self.distance_matrix[i, j] = -1
 
 
-    def find_path(self, node_origin, node_goal):
+    def find_path(self, node_origin, node_goal, algorithm):
         """
         Finds the shortest path between node_origin and node_goal
+        :param: node_origin: starting point
+        :param: node_goal: target point
+        :param: algorithm: algorithm used for finding the shortest path
+            'a_algorithm' -> A* algorithm
+            'dijkstra' -> Dijkstra's algorithm
         :return: A list of points containing the shortest path and the graph
         extended with origin and goal nodes
         """
@@ -113,13 +119,16 @@ class Planner:
             else:
                 connection_matrix[j, -1] = -1
 
-        # Calculate shortest path using A*
-        path = a_algorithm(0, len(graph_nodes)-1, graph_nodes, connection_matrix)
+        if algorithm == 'a_algorithm':
+            # Calculate shortest path using A*
+            path = a_algorithm(0, len(graph_nodes)-1, graph_nodes, connection_matrix)
+        elif algorithm == 'dijkstra':
+            path = dijkstra(0, len(points)-1, connection_matrix, points)
 
         return path, graph_nodes
 
-    def find_path_and_simplify(self, node_origin, node_goal):
-        path, points= self.find_path(node_origin, node_goal)
+    def find_path_and_simplify(self, node_origin, node_goal, algorithm='a_algorithm'):
+        path, points= self.find_path(node_origin, node_goal, algorithm)
         useless_node = True
         i = len(path)-1
         j = i - 1
