@@ -4,11 +4,10 @@ __author__ = 'def'
 
 
 class DilatedEnvironment:
-    def __init__(self, image_to_load, collision_checker, robot_radius):
-        self.image_to_load = image_to_load
+    def __init__(self, image, collision_checker, robot_radius):
 
         # Load image as environment:
-        self.image = cv2.imread(image_to_load, cv2.CV_LOAD_IMAGE_GRAYSCALE)
+        self.image = image
         self.y_limit, self.x_limit = self.image.shape
 
         # Perform dilation of obstacles based on robot
