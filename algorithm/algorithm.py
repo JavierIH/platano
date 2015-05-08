@@ -42,8 +42,9 @@ def main():
 
     while start[0] < 0 or start[0] > env.x_limit or start[1] < 0 or start [1] > env.y_limit or valid_start == False:
         print("el punto seleccionado no es valido")
-        start[0] = int(input("Introduzca la coordenada x del punto inicial:"))
-        start[1] = int(input("Introduzca la coordenada y del punto inicial:"))
+        i_point[0] = int(input("Introduzca la coordenada x del punto inicial:"))
+        i_point[1] = int(input("Introduzca la coordenada y del punto inicial:"))
+        start = tuple(i_point)
         valid_start = env.is_valid(start)
 
     g_point = np.zeros((2, 1))
@@ -54,8 +55,9 @@ def main():
 
     while goal[0] < 0 or goal[0] > env.x_limit or goal[1] < 0 or goal[1] > env.y_limit or valid_goal == False:
         print("el punto seleccionado no es valido")
-        goal[0] = int(input("Introduzca la coordenada x del punto final:"))
-        goal[1] = int(input("Introduzca la coordenada y del punto final:"))
+        g_point[0] = int(input("Introduzca la coordenada x del punto final:"))
+        g_point[1] = int(input("Introduzca la coordenada y del punto final:"))
+        goal = tuple(g_point)
         valid_goal = env.is_valid(goal)
 
     #cv2.waitKey(0)
@@ -158,8 +160,6 @@ def main():
     cv2.imshow("Path", show)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
-
-
 
 
 if __name__ == '__main__':

@@ -121,19 +121,19 @@ class Planner:
     def find_path_and_simplify(self, node_origin, node_goal):
         path, points= self.find_path(node_origin, node_goal)
         useless_node = True
-        aux = len(path)-1
-        aux2 = aux - 1
+        i = len(path)-1
+        j = i - 1
 
         # erase the useless nodes in the path
-        while aux > 0:
-            while useless_node and aux2 > 0:
-                aux2 -= 1
-                useless_node = self.environment.is_line_valid(points[path[aux]], points[path[aux2]])
+        while i > 0:
+            while useless_node and j > 0:
+                j -= 1
+                useless_node = self.environment.is_line_valid(points[path[i]], points[path[j]])
                 if useless_node:
-                    del path[aux2+1]
-                    aux -= 1
-            aux = aux2
-            aux2 -= 1
+                    del path[j+1]
+                    i -= 1
+            i = j
+            j -= 1
             useless_node = True
 
         return path, points

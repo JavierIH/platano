@@ -62,7 +62,6 @@ def dijkstra(start, goal, dist, points):
     while len(pq.heap) > 0 and current != goal:
         min_dist, current = pq.pop()
         closedset.add(current)
-        path.append(current)
 
         for i in range(len(points)):
             if dist[current, i] > 0 and i not in closedset:
@@ -70,6 +69,10 @@ def dijkstra(start, goal, dist, points):
                 new_dist = min(dist[current, i] + min_dist, act_dist)
                 pq.insert(i, new_dist)
                 node_conections.append((i, current))
+                if i == goal:
+                    print current
+
+    path.append(current)
 
     while current != start:
         for i in range(len(node_conections)):
