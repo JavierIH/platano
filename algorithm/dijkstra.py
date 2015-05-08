@@ -47,8 +47,9 @@ class PriorityQueue(object):
 
 def dijkstra(start, goal, dist, points):
 
+    conection = False
     path = []
-    current = 0
+    current = start
     pq = PriorityQueue()
     closedset = set()
     node_conections = [(start, 0)]
@@ -57,7 +58,7 @@ def dijkstra(start, goal, dist, points):
         if i == start:
             pq.insert(i, 0)
         else:
-            pq.insert(i, 1000)
+            pq.insert(i, 10000)
 
     while len(pq.heap) > 0 and current != goal:
         min_dist, current = pq.pop()
@@ -69,16 +70,22 @@ def dijkstra(start, goal, dist, points):
                 new_dist = min(dist[current, i] + min_dist, act_dist)
                 pq.insert(i, new_dist)
                 node_conections.append((i, current))
-                if i == goal:
-                    print current
 
     path.append(current)
 
     while current != start:
+        conection = False
+
         for i in range(len(node_conections)):
             if node_conections[i][0] == current:
                 current = node_conections[i][1]
                 path.append(current)
+                conection = True
+
+        if conection == False:
+            print "No existe una trayectoria directa entre los nodos inicial y final"
+            break
+
     return path
 
 
