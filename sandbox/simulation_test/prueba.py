@@ -7,6 +7,8 @@ import time
 import vrep
 import numpy as np
 import matplotlib.pyplot as mlp
+import cv2
+
    
 print ('Program started')
 vrep.simxFinish(-1) 
@@ -120,7 +122,9 @@ im.resize([resolution[1], resolution[0],3])
 
 im=np.flipud(im)
 
-mlp.imshow(im)
+
+cv2.imshow("image", im)
+
 
 
 
