@@ -82,7 +82,7 @@ class Planner:
                     self.distance_matrix[i, j] = -1
 
 
-    def find_path(self, node_origin, node_goal, algorithm):
+    def find_path(self, node_origin, node_goal, algorithm='a_algorithm'):
         """
         Finds the shortest path between node_origin and node_goal
         :param: node_origin: starting point
