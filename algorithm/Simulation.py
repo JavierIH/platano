@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Test para probar V-Rep con python
 
 """
 import time
@@ -13,9 +12,9 @@ class Simulator:
         vrep.simxFinish(-1) 
         self.clientID=vrep.simxStart(address,port,True,True,5000,5)
         if self.clientID!=-1:
-            print "OK"
+            print "Conexion establecida, todo en orden"
         else:
-            print "FAIL"
+            print "Conexion con el simulador fallida, reinicia el simulador"
         error,self.motorFL=vrep.simxGetObjectHandle(self.clientID,'Pioneer_p3dx_rightMotor',vrep.simx_opmode_oneshot_wait)
         error,self.motorFR=vrep.simxGetObjectHandle(self.clientID,'Pioneer_p3dx_leftMotor',vrep.simx_opmode_oneshot_wait)
         error,self.camera=vrep.simxGetObjectHandle(self.clientID,'Vision_sensor',vrep.simx_opmode_oneshot_wait)
@@ -30,6 +29,7 @@ class Simulator:
     def getRobotPosition(self):
         "get the position and orientation of the robot"
         errorCode, position=vrep.simxGetObjectPosition(self.clientID,self.robot,-1, vrep.simx_opmode_streaming)
+        time.sleep(1)        
         return position[0], position[1]
 
     def getRobotOrientation(self):
@@ -47,7 +47,6 @@ class Simulator:
         y='%.2f'%(position[1])
     
         print "Position: (", x,",", y, ")", "\nYaw:", yaw
-        return 0
     
     def getDistanceToTarget (self, x_target, y_target):
         "gets the distance from the robot to a given target"
@@ -120,4 +119,4 @@ if __name__ == '__main__':
     vision = simulator.getImage()
     
     cv2.imshow("image", vision)
-    cv2.waitKey(0);
+    cv2.waitKey(500);
