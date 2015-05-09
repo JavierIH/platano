@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass{report}
 
 
 % General imports:
@@ -36,7 +36,9 @@
 \newcommand{\department}{Máster Universitario de Robótica y Automatización\\Planificación de tareas y movimientos de robots}
 \newcommand{\teacher}{Alberto Jardón Huete\\Ramón Barber Castaño}
 
-
+% Define a command for comments
+\usepackage{color}
+\newcommand{\comment}[1]{\textbf{\color{red} #1}}
 
 % Each chapter will have its own header
 %\newcommand{\headchapter}[1]{\chapter{#1}\rhead{#1}}
@@ -45,7 +47,7 @@
 %\newcommand{\headsection}[1]{\section{#1}}\rhead{#1}}
 
 % Change 'Chapter' to something more logical
-%\renewcommand{\chaptername}{}
+\renewcommand{\chaptername}{}
 
 
 \begin{document}
@@ -66,7 +68,11 @@
 \newpage
 
 %%%% Different Sections %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\input{introduccion}
+\input{introduccion}
+\input{articulos}
+\input{caso_uso}
+\input{implementacion}
+\input{conclusiones}
 
 %%%% Bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\newpage

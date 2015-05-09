@@ -152,8 +152,9 @@ if __name__ == '__main__':
     import cv2
 
     image_to_load = 'environment_test.png'
+    image = cv2.imread(image_to_load, cv2.CV_LOAD_IMAGE_GRAYSCALE)
 
-    planner = Planner(image_to_load, 'Hammersley', 200, 50, 'dilate', 10)
+    planner = Planner(image, 'Hammersley', 200, 50, 'dilate', 10)
 
     show = cv2.cvtColor(planner.environment.image, cv2.COLOR_GRAY2BGR)
     for point in planner.nodes:

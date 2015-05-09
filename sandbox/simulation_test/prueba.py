@@ -7,6 +7,8 @@ import time
 import vrep
 import numpy as np
 import matplotlib.pyplot as mlp
+import cv2
+
    
 print ('Program started')
 vrep.simxFinish(-1) 
@@ -72,15 +74,7 @@ def getTargetAngle (x_target, y_target):
         
     angle=np.arccos(x_gap/l_gap)*180/3.14159265
     if y_gap < 0:
-        angle=-angle
-    #if x_gap < 0:
-     #   angle=180-angle
-    
-    #if y_gap positivo -> angulo positivo
-    #if y_gap negativo -> angulo negativo
-    #if x_gap positivo -> angulo 
-    #if x_gap negativo -> 180-angulo
-    
+        angle=-angle  
     return angle
     
 def turnToTargetAngle (target_angle):
@@ -111,16 +105,27 @@ printRobotLocation()
 
 
 errorCode, resolution, image=vrep.simxGetVisionSensorImage(clientID, camera, 0, vrep.simx_opmode_streaming)
+time.sleep(1)
 
 errorCode, resolution, image=vrep.simxGetVisionSensorImage(clientID, camera, 0, vrep.simx_opmode_buffer)
+errorCode, resolution, image=vrep.simxGetVisionSensorImage(clientID, camera, 0, vrep.simx_opmode_buffer)
+errorCode, resolution, image=vrep.simxGetVisionSensorImage(clientID, camera, 0, vrep.simx_opmode_buffer)
+errorCode, resolution, image=vrep.simxGetVisionSensorImage(clientID, camera, 0, vrep.simx_opmode_buffer)
+errorCode, resolution, image=vrep.simxGetVisionSensorImage(clientID, camera, 0, vrep.simx_opmode_buffer)
+
+print "hola"
 
 im=np.array(image, dtype=np.uint8)
 im.resize([resolution[1], resolution[0],3])
 
+#mlp.imshow(im)
 
-time.sleep(5);
+im=np.flipud(im)
 
-goToTarget(3,3)
+
+cv2.imshow("image", im)
+
+
 
 
 print "sacabao"
