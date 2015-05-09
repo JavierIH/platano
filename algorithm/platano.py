@@ -34,7 +34,7 @@ cv2.imshow("V-REP", image)
 
 #1m = 64pix
 
-planner = Planner(image_bin, 'Hammersley', 200, 50, 'dilate', 10)
+planner = Planner(image_bin, 'Hammersley', 200, 50, 'dilate', 20)
 
 show = cv2.cvtColor(planner.environment.image, cv2.COLOR_GRAY2BGR)
 for point in planner.nodes:
@@ -83,8 +83,8 @@ while goal[0] < 0 or goal[0] > planner.environment.x_limit or goal[1] < 0 or goa
     valid_goal = planner.environment.is_valid(tuple(goal))
 
 # Calculate path
-#path, points = planner.find_path_and_simplify(tuple(start), tuple(goal))
-path, points = planner.find_path(tuple(start), tuple(goal))
+path, points = planner.find_path_and_simplify(tuple(start), tuple(goal))
+#path, points = planner.find_path(tuple(start), tuple(goal))
 
 # Draw paths
 show = cv2.cvtColor(planner.environment.image, cv2.COLOR_GRAY2BGR)
