@@ -28,8 +28,8 @@ class Simulator:
 
     def getRobotPosition(self):
         "get the position and orientation of the robot"
-        errorCode, position=vrep.simxGetObjectPosition(self.clientID,self.robot,-1, vrep.simx_opmode_streaming)
-        time.sleep(1)        
+        errorCode, position=vrep.simxGetObjectPosition(self.clientID,self.robot,-1, vrep.simx_opmode_oneshot_wait)
+        #time.sleep(0.1)        
         return position[0], position[1]
 
     def getRobotOrientation(self):
@@ -97,10 +97,10 @@ class Simulator:
         self.moveRobot(0,0)
         
     def getImage (self):
-        errorCode, resolution, image=vrep.simxGetVisionSensorImage(self.clientID, self.camera, 0, vrep.simx_opmode_streaming)
-        print "pillando imagen"
-        time.sleep(1) #necesario        
-        errorCode, resolution, image=vrep.simxGetVisionSensorImage(self.clientID, self.camera, 0, vrep.simx_opmode_buffer)        
+        #errorCode, resolution, image=vrep.simxGetVisionSensorImage(self.clientID, self.camera, 0, vrep.simx_opmode_streaming)
+        #print "pillando imagen"
+        #time.sleep(1) #necesario        
+        errorCode, resolution, image=vrep.simxGetVisionSensorImage(self.clientID, self.camera, 0, vrep.simx_opmode_oneshot_wait)        
         im=np.array(image, dtype=np.uint8)
         im.resize([resolution[1], resolution[0],3])
         im=np.flipud(im)

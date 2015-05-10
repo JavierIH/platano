@@ -31,6 +31,7 @@ image = simulator.getImage()
 th, image_bin = cv2.threshold(cv2.cvtColor(image, cv2.COLOR_BGR2GRAY), 210, 255, cv2.THRESH_BINARY);
 
 cv2.imshow("V-REP", image)
+cv2.imwrite("vrep1.jpg", image)
 
 #1m = 64pix
 
@@ -71,7 +72,7 @@ start[0]=int(metersToPixelsX(yyy))
 print("El punto de inicio del robot en pixeles es: ", start[0],", ", start[1])
 valid_start = planner.environment.is_valid(tuple(start))
 
-goal = [640,40]
+goal = [500,280]
 #goal[0] = int(input("Introduzca la coordenada x del punto final:"))
 #goal[1] = int(input("Introduzca la coordenada y del punto final:"))
 valid_goal = planner.environment.is_valid(tuple(goal))
@@ -97,8 +98,9 @@ for point in points:
 cv2.circle(show, points[0], 2, (0, 255, 0), 2)
 cv2.circle(show, points[len(points)-1], 2, (255, 255, 255), 2)
 cv2.imshow("Path", show)
+cv2.imwrite("plano1.jpg",show)
 cv2.waitKey(0)
-cv2.destroyAllWindows()
+
 
 target = [0,0]
 
@@ -111,4 +113,6 @@ for i in path:
     xm=pixelsToMetersY(points[i][1])
     #print xm, ym
     simulator.goToTarget(xm, ym)
+
+simulator.moveRobot(0,0)
 
