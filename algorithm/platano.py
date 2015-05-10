@@ -72,7 +72,7 @@ start[0]=int(metersToPixelsX(yyy))
 print("El punto de inicio del robot en pixeles es: ", start[0],", ", start[1])
 valid_start = planner.environment.is_valid(tuple(start))
 
-goal = [600,50]
+goal = [610,40]
 #goal[0] = int(input("Introduzca la coordenada x del punto final:"))
 #goal[1] = int(input("Introduzca la coordenada y del punto final:"))
 valid_goal = planner.environment.is_valid(tuple(goal))
