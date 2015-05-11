@@ -20,8 +20,57 @@ Estos contornos que definen a los obstáculos son usados en posteriores partes d
 
 El siguiente paso para la generación del roadmap es el muestreo del espacio libre. En el algoritmo original este muestreo se realiza de forma aleatoria, generando nodos del roadmap repartidos aleatoriamente por todo el entorno. La mejora que introduce el artículo que es objeto de estudio con este caso práctico es la generación de dicho muestreo a partir de conjuntos de puntos cuasi-aleatorios. Estas distribuciones de puntos tienen la ventaja de ocupar el espacio libre de forma más eficiente, por lo que con menos cantidad de puntos se puede abarcar un área mayor y, por tanto, más partes delicadas del mapa. Estas partes delicadas pueden ser, por ejemplo, estrechamientos del espacio libre entre obstáculos. Los autores del artículo dan una medida de la ocupación eficiente del espacio libre con un parámetro que ellos llaman \textit{discrepancia}:\\
 
+
+
+
  \[ D_N(P) = \sup_{j}{\left| \frac{A(J)}{N} -  \mu(J) \right| }\]\\
 
 En la que P es un conjunto de N puntos d-dimensionales, $\left\lbrace x_0, ... , x_{N-1} \right\rbrace$ en $[0,1]^d$, J es cualquier subconjunto rectangular de $[0,1]^d$, $\mu()$ es su \comment{measure} y A(J) es el número de puntos contenido en $P \cap J$.\\
 
-Para el muestreo de puntos cuasialeatorios hemos usado dos distribuciones de puntos: el conjunto de Hammersley y el conjunto de Halton. Estas 
+Para el muestreo de puntos cuasi-aleatorios hemos usado dos distribuciones de puntos: el conjunto de Hammersley y el conjunto de Halton. Estas distribuciones se generan a partir de una semilla para un número arbitrario de dimensiones. Estas distribuciones se pueden calcular de la siguiente manera:
+
+\subsubsection{Conjunto de Hammersley}
+
+Dados $d-1$ números primos distintos $p_1, p_2, ... , p_{d-1}$ el i-ésimo punto del conjunto es dado por la expresión:
+
+\[ \left( \frac{i}{N}, r_{p_1}(i), ..., r_{p_{d-1}(i)} \right), \qquad i = 0, 1, ..., N-1\]
+
+\subsubsection{Conjunto de Halton}
+
+Dados $d$ números primos distintos $p_1, p_2, ..., p_d$ el i-ésimo punto del conjunto es dado por la siguiente expresión:
+
+\[ \left( r_{p_1}(i),  r_{p_2}(i), ...,  r_{p_d}(i) \right) \]\\~\\
+
+%\subsubsection{Función $r_p(i)$}
+En ambos casos, la función $r_p(i)$ se obtiene  escribiendo los dígitos de la notación basada en $p$ en orden inverso. Por ejemplo, para la expresión $i = a_0 + a_1 p + a_2 p^2 + a_3 p^3 + ... $ donde $a_j \in \left\lbrace 0, 1, ... , p-1 \right\rbrace$ la función $r_p(i)$ sería:
+
+\[ r_p(i) = \frac{a_0}{p} + \frac{a_1}{p^2} + \frac{a_2}{p^3} + \frac{a_3}{p^4} + ...\]
+
+
+Para nuestra implementación hemos usado una biblioteca, perteneciente al paquete cgkit que nos proporcionaba estos conjuntos de puntos de manera cómoda y rápida, ahorrándonos tiempo de desarrollo y depuración de errores. La figura \ref{fig:muestreo} muestra una comparativa de los distintos métodos de generación de puntos de muestreo en un escenario ficticio.\\
+
+\begin{figure}[b]
+		\centering
+        \begin{subfigure}[b]{0.3\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/random.png}
+                \caption{Muestreo aleatorio}
+                \label{fig:muestreo_aleatorio}
+        \end{subfigure}
+        ~
+        \begin{subfigure}[b]{0.3\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{images/hammersley.png}
+                \caption{Muestreo con puntos Hammersley}
+                \label{fig:muestreo_hammersley}
+        \end{subfigure}
+        ~
+        \begin{subfigure}[b]{0.3\textwidth}
+         	   \centering
+                \includegraphics[width=\textwidth]{images/halton.png}
+                \caption{Muestreo con puntos Halton}
+                \label{fig:muestreo_halton}
+        \end{subfigure}
+        \caption{Comparativa de los distintos modos de muestreo del espacio libre}\label{fig:muestreo}
+\end{figure}
+
