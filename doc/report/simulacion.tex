@@ -35,5 +35,12 @@ Los escenarios propuestos se han diseñado para probar la eficacia del algoritmo
 
 \subsection{Extracción de datos de la simulación}
 
-Uno de los puntos mas interesantes al trabajar con V-REP es la generación de planos a partir de los escenarios. La aplicación desarrollada está programada para funcionar en dos dimensiones, sin embargo, para crear los mapas se han tenido en cuenta tres dimensiones. El motivo de esto es obtener un funcionamiento óptimo del robot en situaciones cuya cruzabilidad se vea comprometida.
+Uno de los puntos mas interesantes al trabajar con V-REP es la generación de planos a partir de los escenarios. La aplicación desarrollada está programada para funcionar en dos dimensiones, sin embargo, para crear los mapas se han tenido en cuenta tres dimensiones. El motivo de esto es obtener un funcionamiento óptimo del robot en situaciones cuya cruzabilidad se vea comprometida. Los casos más numerosos son aquellos en los que el robot se enfrenta al paso bajo un obstáculo elevado. 
+
+Para extraer el plano se ha utilizado una cámara aérea de proyección ortogonal. Su rango de visión abarca la superficie completa del escenario y está situada a una altura ligeramente superior a la del robot. Dicho de otra forma, la cámara captará todos los objetos que se encuentren en el escenario que intercedan en el volumen mínimo sobre el que puede garantizarse la cruzabilidad.
+
+En las imágenes de la figura [ javi ] se puede observar que los obstáculos cuya altura es superior al robot, no se tienen en cuenta a la hora de procesar el algoritmo.
+
+
+Las imágenes son transferidas desde el simulador al programa principal, dónde se les aplica el algoritmo y comienza la ejecución.
 
