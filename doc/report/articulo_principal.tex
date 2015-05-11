@@ -11,7 +11,7 @@ El método que Brooks expone en este artículo se basa en la representación del
 
 \begin{figure}[h]
 		\centering
-        \includegraphics[width=0.35\textwidth]{images/cono_gen.png}
+        \includegraphics[width=0.4\textwidth]{images/cono_gen.png}
         \caption{Cono generalizado en un plano 2D}
         \label{fig:cono_generalizado}
 \end{figure} 
@@ -24,9 +24,28 @@ Finalmente, se genera el grafo que contiene todas las rutas posibles, comproband
 
 Una vez tenemos el grafo, se puede realizar la búsqueda del camino más corto de un nodo a otro del grafo usando un algoritmo de búsqueda en grafos tal como el $A^*$. El camino resultante será un conjunto de tramos rectos en los que el objeto se desplará usando translaciones puras y un conjunto de nodos en los que el objeto se reorientará mediante rotaciones puras para dirigirse al siguiente nodo.\\
 
-El método para generar los conos generalizados está ampliamente detallado en el artículo, \comment{y un resumen sería bla, bla, bla}.\\
+El método para generar los conos generalizados está ampliamente detallado en el artículo, y se explica a continuación. En primer lugar, se define el lado libre de una arista del obstáculo como el lado hacia el que apunta la normal a esa superficie (la parte de fuera del polígono). Se considera que dos aristas forman parte de un cono generalizado si se cumplen las siguientes condiciones: al menos un vértice de la arista debe encontrarse en el lado libre de la otra arista y el producto escalar de las normales que apuntan hacia afuera debe ser negativo. Esta última condición asegura que los dos lados libres de las aristan se encuetren en el mismo lado.\\
+
+Una vez se han calculado los conos generalizados, se obtienen las columnas de los mismos mediante la bisectriz del espacio libre entre las aristas de los obstáculos y se extiende el cono desde los vértices de forma paralela a su columna. Tras generar cada cono, se deben comprobar colisiones con todos los obstáculos, pues puede suceder que al generar un cono éste tenga un obstáculo dentro y no se encuentre totalmente en el espacio libre. Si esto sucede, la intersección se ha de proyectar sobre la columna del cono para obtener la parte del cono que pertece al espacio libre.\\
 
 \subsection{A Note on ``Solving the Find-Path Problem by Good Representation of Free Space''}
 
+Este artículo, escrito en 1997 por Wang, es una crítica al artículo de Brooks. En él, se explica que las condiciones de tranlaciones puras y rotaciones puras que son un requisito indispensable para la navegación usando el algoritmo de Brooks no son válidas para todos los tipos de robot móvil. Por tanto, el algoritmo de representación del espacio libre mediante conos generalizados sólo es aplicable a cierto tipo de robots móviles.\\
+
+En primer lugar comenta las limitaciones en el caso de robots diferenciales, en cuyo caso las limitaciones sólo se aplican al punto de referencia que se ha de elegir para el sistema de referencia del robot. Para que las condiciones de rotación pura y translación puras se cumplan, el punto seleccionado debe encontrarse en \\
+
+
+ de tres ruedas, tipo triciclo, cuyas ecuaciones del movimiento son:
+
+\begin{figure}[h]
+		\centering
+        \includegraphics[width=0.4\textwidth]{images/triciclo.jpg}
+        \caption{Robot tipo triciclo}
+        \label{fig:triciclo}
+\end{figure} 
+
+\[Ecuation\]
+
+Estos robots, como el de la figura \ref{fig:triciclo}
 \newpage
 
