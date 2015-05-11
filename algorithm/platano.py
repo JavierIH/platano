@@ -35,7 +35,7 @@ cv2.imwrite("vrep2.jpg", image)
 
 #1m = 64pix
 
-planner = Planner(image_bin, 'Hammersley', 400, 50, 'dilate', 25)
+planner = Planner(image_bin, 'Hammersley', 300, 50, 'dilate', 25)
 
 show = cv2.cvtColor(planner.environment.image, cv2.COLOR_GRAY2BGR)
 for point in planner.nodes:
