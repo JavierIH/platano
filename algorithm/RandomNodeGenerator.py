@@ -18,3 +18,4 @@ class RandomNodeGenerator:
 
     def generate_nodes(self, environment, n):
         return [ point for point in self.generate_raw_nodes(environment, n) if environment.is_valid(point) ]
+
