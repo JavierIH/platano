@@ -28,14 +28,24 @@ simulator = Simulator(address,port)
 
 image = simulator.getImage()
 
-th, image_bin = cv2.threshold(cv2.cvtColor(image, cv2.COLOR_BGR2GRAY), 210, 255, cv2.THRESH_BINARY);
+start = [0,0]
+
+xxx, yyy = simulator.getRobotPosition()
+xxx, yyy = simulator.getRobotPosition()
+xxx, yyy = simulator.getRobotPosition()
+
+start[1]=int(metersToPixelsY(xxx))
+start[0]=int(metersToPixelsX(yyy))
+    
+#cv2.circle(image, (start[0], start[1]), 2, (0, 0, 0), 2)    
+    
+th, image_bin = cv2.threshold(cv2.cvtColor(image, cv2.COLOR_BGR2GRAY), 60, 255, cv2.THRESH_BINARY);
 
 cv2.imshow("V-REP", image)
-cv2.imwrite("vrep2.jpg", image)
-
+cv2.waitKey(0)
 #1m = 64pix
 
-planner = Planner(image_bin, 'Hammersley', 300, 50, 'dilate', 25)
+planner = Planner(image_bin, 'Hammersley', 400, 50, 'dilate', 15)
 
 show = cv2.cvtColor(planner.environment.image, cv2.COLOR_GRAY2BGR)
 for point in planner.nodes:
@@ -57,22 +67,14 @@ for i, origin in enumerate(planner.nodes):
 print("Los limites del mapa son: ", planner.environment.x_limit, planner.environment.y_limit)
 
 
-start = [0,0]
-
-xxx, yyy = simulator.getRobotPosition()
-xxx, yyy = simulator.getRobotPosition()
-xxx, yyy = simulator.getRobotPosition()
 
 print("Los limites del mapa son: ", planner.environment.x_limit, planner.environment.y_limit)
 print("El punto de inicio del robot en metros es: ", xxx,", ", yyy)
 
-start[1]=int(metersToPixelsY(xxx))
-start[0]=int(metersToPixelsX(yyy))
-
 print("El punto de inicio del robot en pixeles es: ", start[0],", ", start[1])
 valid_start = planner.environment.is_valid(tuple(start))
 
-goal = [610,40]
+goal = [560,400]
 #goal[0] = int(input("Introduzca la coordenada x del punto final:"))
 #goal[1] = int(input("Introduzca la coordenada y del punto final:"))
 valid_goal = planner.environment.is_valid(tuple(goal))
@@ -98,7 +100,6 @@ for point in points:
 cv2.circle(show, points[0], 2, (0, 255, 0), 2)
 cv2.circle(show, points[len(points)-1], 2, (255, 255, 255), 2)
 cv2.imshow("Path", show)
-cv2.imwrite("plano2.jpg",show)
 cv2.waitKey(0)
 
 

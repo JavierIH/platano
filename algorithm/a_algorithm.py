@@ -54,4 +54,5 @@ def a_algorithm(start, goal, points, dist):
                     path.append(current)
     else:
         print "No existe una trayectoria directa entre los nodos inicial y final"
+        #path = 0
     return path
