@@ -11,7 +11,7 @@ El método que Brooks expone en este artículo se basa en la representación del
 
 \begin{figure}[h]
 		\centering
-        \includegraphics[width=0.4\textwidth]{images/cono_gen.png}
+        \includegraphics[width=0.5\textwidth]{images/cono_gen.png}
         \caption{Cono generalizado en un plano 2D}
         \label{fig:cono_generalizado}
 \end{figure} 
@@ -32,20 +32,30 @@ Una vez se han calculado los conos generalizados, se obtienen las columnas de lo
 
 Este artículo, escrito en 1997 por Wang, es una crítica al artículo de Brooks. En él, se explica que las condiciones de tranlaciones puras y rotaciones puras que son un requisito indispensable para la navegación usando el algoritmo de Brooks no son válidas para todos los tipos de robot móvil. Por tanto, el algoritmo de representación del espacio libre mediante conos generalizados sólo es aplicable a cierto tipo de robots móviles.\\
 
-En primer lugar comenta las limitaciones en el caso de robots diferenciales, en cuyo caso las limitaciones sólo se aplican al punto de referencia que se ha de elegir para el sistema de referencia del robot. Para que las condiciones de rotación pura y translación puras se cumplan, el punto seleccionado debe encontrarse en \\
+En primer lugar comenta las limitaciones en el caso de robots diferenciales, en cuyo caso las limitaciones sólo se aplican al punto de referencia que se ha de elegir para el sistema de referencia del robot. Para que las condiciones de rotación pura y translación puras se cumplan, el punto seleccionado debe encontrarse en el eje de rotación de las ruedas móviles, en el punto de corte con la mediatriz del eje.\\
 
 
- de tres ruedas, tipo triciclo, cuyas ecuaciones del movimiento son:
+En el caso de los robots de tres ruedas, tipo triciclo (figura \ref{fig:triciclo}) y los de cuatro, de tipo coche (con ruedas directrices y ruedas fijas), al ser robots no holonómicos,  además de la limitación del punto de referencia colocado en el punto medio del eje de las ruedas traseras, se añade una limitación extra para la rotación pura. De esta forma, si el robot posee un rango de movimiento en la rueda directriz menor de 90º, el robot no podrá realizar rotaciones puras. Esto se puede apreciar mediante las ecuaciones cinemáticas del robot de tipo triciclo:
 
 \begin{figure}[h]
 		\centering
-        \includegraphics[width=0.4\textwidth]{images/triciclo.jpg}
+        \includegraphics[width=0.5\textwidth]{images/triciclo.jpg}
         \caption{Robot tipo triciclo}
         \label{fig:triciclo}
 \end{figure} 
 
-\[Ecuation\]
+\[ \dot{x_R} = - v \cos{(\alpha)} \sin{(\theta)} \]
+\[ \dot{y_R} =   v \cos{(\alpha)} \cos{(\theta)} \]
+\[ \dot{\theta} = \frac{v}{L} \sin{(\alpha)} \]\\
 
-Estos robots, como el de la figura \ref{fig:triciclo}
+Para un punto situado en la rueda delantera, donde $\theta$ es el ángulo formado con la horizontal, $\alpha$ es el ángulo de giro de la rueda directriz, $v$ es la velocidad de la rueda directriz y L es la distancia entre el eje trasero y la rueda directriz. Para un punto situado en el punto medio del eje trasero, las ecuaciones cinemáticas se convierten en:
+
+\[ \dot{x_R} = - v sin{(\alpha + \theta)} \]
+\[ \dot{y_R} =   v \cos{(\alpha + \theta)} \]
+\[ \dot{\theta} = \frac{v}{L} \sin{(\alpha)} \]\\
+
+Con lo que podemos observar que sólo existe rotación pura para un robot de tipo triciclo si la rueda directriz no tiene limitado el rango de giro, y puede ir desde -90º hasta 90º. En todos los demás casos la rotación pura es imposible y, por tanto, no se podría aplicar el algoritmo de Brooks.
+
+
 \newpage
 
