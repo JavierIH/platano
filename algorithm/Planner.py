@@ -123,6 +123,7 @@ class Planner:
             # Calculate shortest path using A*
             path = a_algorithm(0, len(graph_nodes)-1, graph_nodes, connection_matrix)
         elif algorithm == 'dijkstra':
+            # Calculate shortest path using dijkstra
             path = dijkstra(0, len(points)-1, connection_matrix, points)
 
         return path, graph_nodes
