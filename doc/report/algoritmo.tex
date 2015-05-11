@@ -1,4 +1,27 @@
 \section{Algoritmo}
 \label{algoritmo}
 
-\comment{El algoritmo y eso va aquí}
+En esta sección se presenta el algoritmo que se ha implementado para el caso de uso que se ha tratado. El algoritmo se puede ver en el flujograma de la figura \ref{fig:flujo_algoritmo}. \\
+
+\comment{Insertar flujograma!}\\
+
+En primer lugar se procesa la imagen obtenida del escenario (mapa) para extraer los obstáculos. A continuación, se generan los puntos (muestras) que corresponderán a los nodos del roadmap y se conectan siguendo un criterio de distancias. Por último, cuando un punto inicial y un punto final son pedidos, se incluyen en el grafo y se calcula el camino más corto mediante un algoritmo de búsqueda en grafos, tal como el Djisktra o el $A^*$.\\
+
+\subsection{Procesamiento del mapa}
+
+A partir de la imagen del escenario capturada desde el simulador, se realiza un procesamiento de la misma usando técnicas de visión por computador. Se comienza por realizar un umbralizado de manera que el resultado es una imagen binaria en la que los obstáculos son píxeles blancos y el espacio libre píxeles negros. \\
+
+A la imagen binaria se le realiza un etiquetado de objetos para obtener los contornos de los distintos obstáculos, los cuales son posteriormente simplificados para reducir el número de puntos que definen el obstáculo, mejorando la eficiencia del algoritmo de detección de colisiones.\\
+
+Estos contornos que definen a los obstáculos son usados en posteriores partes del algoritmo. En la figura \ref{fig:procesado_imagen} se especifica el diagrama de flujo del procesamiento del mapa.
+
+
+\subsection{Muestreo del espacio libre}
+
+El siguiente paso para la generación del roadmap es el muestreo del espacio libre. En el algoritmo original este muestreo se realiza de forma aleatoria, generando nodos del roadmap repartidos aleatoriamente por todo el entorno. La mejora que introduce el artículo que es objeto de estudio con este caso práctico es la generación de dicho muestreo a partir de conjuntos de puntos cuasi-aleatorios. Estas distribuciones de puntos tienen la ventaja de ocupar el espacio libre de forma más eficiente, por lo que con menos cantidad de puntos se puede abarcar un área mayor y, por tanto, más partes delicadas del mapa. Estas partes delicadas pueden ser, por ejemplo, estrechamientos del espacio libre entre obstáculos. Los autores del artículo dan una medida de la ocupación eficiente del espacio libre con un parámetro que ellos llaman \textit{discrepancia}:\\
+
+ \[ D_N(P) = \sup_{j}{\left| \frac{A(J)}{N} -  \mu(J) \right| }\]\\
+
+En la que P es un conjunto de N puntos d-dimensionales, $\left\lbrace x_0, ... , x_{N-1} \right\rbrace$ en $[0,1]^d$, J es cualquier subconjunto rectangular de $[0,1]^d$, $\mu()$ es su \comment{measure} y A(J) es el número de puntos contenido en $P \cap J$.\\
+
+Para el muestreo de puntos cuasialeatorios hemos usado dos distribuciones de puntos: el conjunto de Hammersley y el conjunto de Halton. Estas 
