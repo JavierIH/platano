@@ -43,17 +43,17 @@ El segundo controlador del robot corresponde a su traslación. Ya que el robot c
 Los escenarios propuestos se han diseñado para probar la eficacia del algoritmo frente a diferentes situaciones problemáticas. Entre los puntos críticos de los escenarios destacan: tuneles con una altura definida, pasillos estrechos y zigzagueos. El uso de bloques sólidos modulares permite realizar configuraciones precisas para probar de forma directa las capacidades del algoritmo. Se han diseñado 3 escenarios con un area de javi m.
 
 \begin{itemize}
-	\item Escenario A: Túneles y obstáculos de diferente altura. Puede observarse en la figura \ref{fig:escenario1.png}.	
+	\item Escenario A: Túneles y obstáculos de diferente altura. Puede observarse en la figura \ref{fig:escenario1}.	
 	
 	
 \begin{figure}[h]
 		\centering
-        \includegraphics[width=0.7\textwidth]{images/escenario1.png}
+        \includegraphics[width=0.7\textwidth]{images/escenario1}
         \caption{Escenario numero 1}
         \label{fig:escenario1}
 \end{figure} 
 	
-	\item Escenario B: Zigzagueo constante y pasillos estrechos. Puede observarse en la figura \ref{fig:escenario2.png}.
+	\item Escenario B: Zigzagueo constante y pasillos estrechos. Puede observarse en la figura \ref{fig:escenario2}.
 	
 		
 \begin{figure}[h]
@@ -63,7 +63,7 @@ Los escenarios propuestos se han diseñado para probar la eficacia del algoritmo
         \label{fig:escenario2}
 \end{figure} 
 	
-	\item Escenario C: Integración de túneles, zigzagueos y pasillos estrechos. Puede observarse en la figura \ref{fig:escenario3.png}.
+	\item Escenario C: Integración de túneles, zigzagueos y pasillos estrechos. Puede observarse en la figura \ref{fig:escenario3}.
 
 	
 \begin{figure}[h]
@@ -78,7 +78,7 @@ Los escenarios propuestos se han diseñado para probar la eficacia del algoritmo
 
 
 
-\subsection{Extracción de datos de la simulación}
+\subsection{Extracción de datos del simulador}
 
 Uno de los puntos mas interesantes al trabajar con V-REP es la generación de planos a partir de los escenarios. La aplicación desarrollada está programada para funcionar en dos dimensiones, sin embargo, para crear los mapas se han tenido en cuenta tres dimensiones. El motivo de esto es obtener un funcionamiento óptimo del robot en situaciones cuya cruzabilidad se vea comprometida. Los casos más numerosos son aquellos en los que el robot se enfrenta al paso bajo un obstáculo elevado. 
 
