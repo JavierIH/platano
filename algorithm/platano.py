@@ -44,9 +44,35 @@ cv2.circle(image_bin, tuple(start), 2, 0, 40)
 
 
 cv2.imshow("V-REP", image)
-#1m = 64pix
+
+#################################################     PLANNER SETTINGS     ###################
+#
+#            Planner(self, environment_image,
+#                 node_gen_method='random', nodes=200, threshold_neighbors=50,
+#                 collision_method='simple', collision_radius=None):
+#                     
+#        :param environment_image: matrix containing the segmented b/w map
+#        :param node_gen_method: method for generating the nodes
+#            'random' -> random
+#            'Hammersley' -> Hammersley point distribution
+#            'Halton' -> Halton point distribution
+#        :param nodes: number of nodes generated (before collision checking)
+#        :param threshold_neighbors: maximum distance to consider two nodes connected
+#        :param collision_method: method to check collision
+#            'simple' -> point to obstacle checking
+#            'circle' -> circle (robot) to obstacle checking
+#            'dilate' -> point to dilated obstacle checking
+#        :param collision_radius: in methods using this parameter, this is the radius of the
+#            robot
+#
+##############################################################################################
 
 planner = Planner(image_bin, 'Hammersley', 400, 50, 'dilate', 16)
+
+
+
+
+
 
 show = cv2.cvtColor(planner.environment.image, cv2.COLOR_GRAY2BGR)
 for point in planner.nodes:
@@ -57,8 +83,8 @@ for i, origin in enumerate(planner.nodes):
     for j, end in enumerate(planner.nodes):
         if planner.distance_matrix[i, j] > 0:
             cv2.line(show, origin, end, (255, 255, 0))
-#cv2.imshow("Connections", show)
-#cv2.waitKey(0)
+cv2.imshow("Connections", show)
+cv2.waitKey(500)
 #cv2.destroyAllWindows()
 
 # Ask for input
@@ -76,14 +102,14 @@ print("El punto de inicio del robot en pixeles es: ", start[0],", ", start[1])
 valid_start = planner.environment.is_valid(tuple(start))
 
 goal = [560,400]
-#goal[0] = int(input("Introduzca la coordenada x del punto final:"))
-#goal[1] = int(input("Introduzca la coordenada y del punto final:"))
+goal[0] = int(input("Introduzca la coordenada x del punto final:"))
+goal[1] = int(input("Introduzca la coordenada y del punto final:"))
 valid_goal = planner.environment.is_valid(tuple(goal))
 
 while goal[0] < 0 or goal[0] > planner.environment.x_limit or goal[1] < 0 or goal[1] > planner.environment.y_limit or valid_goal == False:
     print("el punto seleccionado no es valido")
-    goal[0] = int(input("Introduzca la coordenada x del punto final:"))
-    goal[1] = int(input("Introduzca la coordenada y del punto final:"))
+    goal[0] = int(input("Introduzca la coordenada x del punto final (pixeles):"))
+    goal[1] = int(input("Introduzca la coordenada y del punto final (pixeles):"))
     valid_goal = planner.environment.is_valid(tuple(goal))
 
 # Calculate path
