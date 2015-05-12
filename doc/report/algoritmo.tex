@@ -147,5 +147,8 @@ El $A^*$ trabaja con dos subconjuntos de nodos. En openset se almacenarán los u
 Se buscan los vecinos del nodo sobre el que se está trabajando, y, si no pertenecen ni a openset ni a closedset, se calcula su coste y se almacenan en openset. Una vez hecho esto, se elige al nodo de openset con menor coste y se pasa a trabajar sobre este. Este proceso se repite hasta que se llegue al nodo final o hasta que no queden nodos en openset.\\
 
 Por último, si se ha encontrado un camino, se recorren los nodos almacenados en node_connection y se reconstruye el camino. Si no se ha encontrado una trayectoria posible, se devuelve el path vacío y se dá un mensaje indicando el fallo.\\
+\\
 
 \subsubsection{Dijkstra}
+
+Este algoritmo fue desarrollado originalmente por E. Dijkstra en 1956 como un método para encontrar el camino mas corto entre dos nodos, aunque existe otra versión, más utilizada, en la que se busca el camino más corto desde un nodo hasta todos los demás. Se puede optimizar el tiempo de ejecución utilizando una cola de prioridad (estructura de datos en las que a cada elemento se le asocia una prioridad que )
