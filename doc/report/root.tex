@@ -53,6 +53,9 @@
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
 
+% This is used for adding appendices:	
+\usepackage[toc,page]{appendix}
+
 \begin{document}
 
 %%%% FRONTPAGE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -76,6 +79,11 @@
 \input{caso_uso}
 \input{implementacion}
 \input{conclusiones}
+
+%%%% Appendices %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{appendices}
+\input{instalacion}
+\end{appendices}
 
 %%%% Bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\newpage
