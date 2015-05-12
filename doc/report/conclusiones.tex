@@ -1,4 +1,8 @@
 \chapter{Conclusiones}
 \label{Conclusiones}
 
-\comment{Conclusiones y resultados y esas cosas}
+Con este trabajo se ha tratado de demostrar, a través de un ejemplo práctico, que a la hora de buscar una solución al problema de la generación de trayectorias siguiendo una aproximación aleatoria, es preferible diseñar un conjunto de muestras pseudoaleatorias que busquen cumplir unos criterios de rendimiento antes que muestras totalmente aleatorias.\\
+
+Se ha implementado una versión del Probabilistic Road Map utilizando dos grupos de puntos, los puntos de Hammersley y los de Halton. Para hallar el camino, se ha utilizado el algoritmo $A^*$ y el Dijkstra, y para comprobar las colisiones se desarrollaron tres métodos distintos. Tras analizar los resultados experimentales obtenidos, se puede concluir que el uso de puntos pseudoaleatorios mejora notablemente la efectividad del algoritmo, tanto en el camino encontrado como en el tiempo de ejecución. Aunque el algoritmo que se use para encontrar la trayectoria es importante, no han aparecido diferencias sustanciales entre el Dijkstra y el $A^*$. Por último, con respecto al comprobador de colisiones, finalmente se optó por utilizar una aproximación que permite evitar los obstáculos con éxito reduciendo el tiempo necesario para ello.\\
+
+Con todo, el metodo Q-PRM ha demostrado ser una solucion muy eficaz y robusta a la hora de encontrar la trayectoria optima para un robot movil, a la vez que mantiene abierta la puerta a futuras mejoras del algoritmo.   

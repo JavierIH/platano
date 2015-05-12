@@ -55,9 +55,9 @@ Se puede observar como el coste computacional crece de forma lineal con el valor
 
 \begin{figure}[h]
 		\centering
-        \includegraphics[width=0.35\textwidth]{images/50-500puntos.png}
-        \includegraphics[width=0.35\textwidth]{images/100-500puntos.png}
-        \includegraphics[width=0.35\textwidth]{images/300-500puntos.png}
+        \includegraphics[width=0.35\textwidth]{images/50-500points.png}
+        \includegraphics[width=0.35\textwidth]{images/100-500points.png}
+        \includegraphics[width=0.35\textwidth]{images/300-500points.png}
         \caption{Variación en la conectividad en funcion del umbral (50, 100, 300)}
         \label{fig:50_100_300umbral}
 \end{figure}
@@ -88,4 +88,26 @@ Donde las muestras rojas corresponden al algoritmo $A^*$ y las amarillas, al Dij
 
 \subsection{Efecto del tipo de puntos}
 
-En este proyecto se han usado dos tipos de secuencias de puntos cuasialeatorios (Hammersley y Halton) y un grupo de puntos totalmente aleatorios para poder comparar que efecto tienen. El uso de puntos pseudoaleatorios mejora la exploración del espacio de soluciones, mejorando las posibilidades de encontrar un comino, especialmente en entornos dificiles, con muchos obstáculos o regiones estrechas. En la seccion de implementacion del algoritmo se muestra como muestrea el espacio cada uno de los conjuntos de puntos, Dejando bastante claro que los pseudoaleatorios son      
+En este proyecto se han usado dos tipos de secuencias de puntos cuasialeatorios (Hammersley y Halton) y un grupo de puntos totalmente aleatorios para poder comparar que efecto tienen. El uso de puntos pseudoaleatorios mejora la exploración del espacio de soluciones, mejorando las posibilidades de encontrar un comino, especialmente en entornos dificiles, con muchos obstáculos o regiones estrechas. En la seccion de implementacion del algoritmo se muestra como muestrea el espacio cada uno de los conjuntos de puntos, Dejando bastante claro que los pseudoaleatorios son una mejor solución. En este apartado, lo que se busca es comparar el coste computacional de utilizar uno u otro tipo de puntos, variando el numero de nodos entre 100, 500, 1000. En la figura \ref{t_vs_tipo} se pueden ver los resultados:\\
+
+\begin{figure}[H]
+		\centering
+        \includegraphics[width=0.2\textwidth]{images/t_vs_nodos_vs_tipo.png}
+        \caption{Tiempo frente a tipo de puntos}
+        \label{fig:t_vs_tipo}
+\end{figure}
+
+Donde las muestras azules son para los puntos aleatorios, las rojas representan los resultados de los puntos Hammersley y las amarillas a los Halton. Se puede ver que no existe una diferencia significativa con respecto al tiempo de calculo, sin embargo solo se encontro una solucion para 1000 nodos usando los aleatorios, mientras que para los puntos de Hammersley y los de Halton ya se obtuvo resultados para 500 nodos.
+
+\subsection{Efecto del tipo de comprobador de colisiones empleado}
+
+Este es uno de los puntos criticos del trabajo, ya que es donde existe una mayor diferencia de tiempos. Como ya se explicó, se usaron tres comprobadores distintos. Se ejecutó el algoritmo para 100, 250, 500 y 1000 nodos y se obtuvieron los siguientes resultados:\\ 
+
+\begin{figure}[H]
+		\centering
+        \includegraphics[width=0.2\textwidth]{images/t_vs_nodos_vs_col.png}
+        \caption{Tiempo frente a tipo de comprobador de colisiones}
+        \label{fig:t_vs_col}
+\end{figure}
+
+Donde las muestras azules corresponden al comprobador simple, las rojas al comprobador dilate y las amarillas al comprobador circle. El simple no es una opción a considerar, ya que no evita que el robot se choque, al considerar a este como un punto. De los otros dos, el circle es el que trabaja como debería, pero es computacionalmente muy pesado, mientras que el dilate es una solución aceptable aproximada, pero mucho mas rápida, por lo que se eligió como la opción a utilizar.
