@@ -112,40 +112,41 @@ A continuación se muestra el pseudocódigo que describe el algoritmo $A^*$ tal 
 
 \begin{algorithm}
 \caption{$A^*$ algorithm(start,target,distances,graph)}\label{A_algorithm}
-\begin{algorithmic}
+\begin{algorithmic}[1]
 \State openset = start
 \State closedset = empty
 \State path = empty
 \State node\_connection = empty
 \While {openset != empty and current != start}
-\ForAll{nodes in graph}
- \State Pick the current node neighbours
- \If{neighbour not in openset and not in closedset} 
- \State Calculate the cost value for that neighbour
- \State Add that neighbour to openset
- \State Add current,neighbour to node\_connection
-\EndFor
-\State current = best node in openset
-\State Add current to closedset and remove it from openset
+	\ForAll{nodes in graph}
+ 		\State Pick the current node neighbours
+ 		\If{neighbour not in openset and not in closedset} 
+ 			\State Calculate the cost value for that neighbour
+ 			\State Add that neighbour to openset
+ 			\State Add current,neighbour to node\_connection
+ 		\EndIf
+	\EndFor
+	\State current = best node in openset
+	\State Add current to closedset and remove it from openset
 \EndWhile
 \If{exist path}
-\While{current != start}
-\State Add current to path
-\State current = node\_connection[current]
-\EndWhile
+	\While{current != start}
+		\State Add current to path
+		\State current = node\_connection[current]
+	\EndWhile
 \Else
-\State path = empty
+	\State path = empty
 \EndIf
-\State return path
+	\State return path
 \end{algorithmic}
 \end{algorithm}  
 
 Al algoritmo se le pasan cuatro parámetros. Start hace referencia al nodo de origen, target es el nodo de destino, graph es un vector donde se almacenan los diversos puntos con los que se ha muestreado el $C_free$ y, por último, dist es una matriz donde se almacena la distancia de cada nodo a todos los demás. Si esos nodos son vecinos la distancia será la separación entre puntos y si no lo son, vale -1.\\
 
-El $A^*$ trabaja con dos subconjuntos de nodos. En openset se almacenarán los ultimos nodos sobre los que se está trabajando (el nodo actual y el último nodo considerado de cada una de las trayectorias alternativas) mientras que en closedset se irán guardando los nodos por los que ya se haya pasado. Además, en node_connection se almacena cada nodo del openset y el nodo contiguo en su trayectoria.\\
+El $A^*$ trabaja con dos subconjuntos de nodos. En openset se almacenarán los ultimos nodos sobre los que se está trabajando (el nodo actual y el último nodo considerado de cada una de las trayectorias alternativas) mientras que en closedset se irán guardando los nodos por los que ya se haya pasado. Además, en node\_connection se almacena cada nodo del openset y el nodo contiguo en su trayectoria.\\
 
 Se buscan los vecinos del nodo sobre el que se está trabajando, y, si no pertenecen ni a openset ni a closedset, se calcula su coste y se almacenan en openset. Una vez hecho esto, se elige al nodo de openset con menor coste y se pasa a trabajar sobre este. Este proceso se repite hasta que se llegue al nodo final o hasta que no queden nodos en openset.\\
 
-Por último, si se ha encontrado un camino, se recorren los nodos almacenados en node_connection y se reconstruye el camino. Si no se ha encontrado una trayectoria posible, se devuelve el path vacío y se dá un mensaje indicando el fallo.\\
+Por último, si se ha encontrado un camino, se recorren los nodos almacenados en node\_connection y se reconstruye el camino. Si no se ha encontrado una trayectoria posible, se devuelve el path vacío y se dá un mensaje indicando el fallo.\\
 
 \subsubsection{Dijkstra}
