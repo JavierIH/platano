@@ -5,13 +5,13 @@
 El articulo complementario que se ha estudiado durante la realización de este proyecto tiene por título \textsl{"Quasi-Randomized Path Planning"}, y fue escrito por M. Branicky, S. La Valle, K. Olson y L. Yang.. En el se propone un enfoque distinto a la hora de muestrear el espacio por el que se moverá el robot, pasando a distribuir los nodos de forma cuasi-aleatoria, en vez de hacerse por completo aleatoriamente.
 \\
 
-Cuando se trabaja en un espacio de configuraciones con un alto número de variables a considerar, las aproximaciones determinísticas clásicas desarrolladas para la planificación de trayectorias dejan de ser aplicables, o son demasiado costosas. Para estos casos, en la década de los 90 se comenzarom a desarrollar enfoques aleatorios. Estos métodos pasaron a ser mas usados que los determinísticos por dos motivos:
+Cuando se trabaja en un espacio de configuraciones con un alto número de variables a considerar, las aproximaciones deterministas clásicas desarrolladas para la planificación de trayectorias dejan de ser aplicables, o son demasiado costosas. Para estos casos, en la década de los 90 se comenzarom a desarrollar enfoques aleatorios. Estos métodos pasaron a ser mas usados que los deterministas por dos motivos:
 \begin{enumerate}
 \item Permitían resolver un problema con una alta multidimensionalidad sin la necesidad de explorar todas las alternativas.
-\item Si se ve el problema como un enemigo a vencer, a menudo se puede evitar la derrota aplicando una estrategia aleatoria, cosa que no ocurre con una determinística. 
+\item Si se ve el problema como un enemigo a vencer, a menudo se puede evitar la derrota aplicando una estrategia aleatoria, cosa que no ocurre con una determinista. 
 \end{enumerate}  
 
-Sin embargo, no es posible conseguir suna serie de datos realmente aleatorios, ya que cualquier posible implementación simplemente llevará a una secuencia determinística de números pseudoaleatorios que van a seguir una cierta función de probabilidad. De aquí se sacó la idea de desarrollar un metodo cuasi-aleatorio que permitiese solucionar el problema de la generación de trayectorias de forma más eficaz. 
+Sin embargo, no es posible conseguir una serie de datos realmente aleatorios, ya que cualquier posible implementación simplemente llevará a una secuencia determinista de números pseudoaleatorios que van a seguir una cierta función de probabilidad. De aquí se sacó la idea de desarrollar un metodo cuasi-aleatorio que permitiese solucionar el problema de la generación de trayectorias de forma más eficaz. 
 \\
 
 A la hora de generar la secuencia de muestras pseudo-aleatorias con las que va a trabajar el método aleatorio de planificación, se busca el conjunto de puntos que optimicen el valor de dos parámetros, la discrepancia y la dispersión. La discrepancia para un conjunto P formado por N muestras de d-dimensiones en $[0,1]^{d}$  viene dada por la ecuación 2.1:
@@ -19,7 +19,7 @@ A la hora de generar la secuencia de muestras pseudo-aleatorias con las que va a
 D_{N}(P) = \sup_{j} |\frac{A(J)}{N}-\mu(J)|
 \end{equation} 
 
-Donde J es cualquier subconjunto rectangular perteneciente a $[0,1]^{d}$, $\mu(J)$ es su medida y A(J) es el número de puntos que pertenecen a la unión entre P y J. En cuanto a la dispersión, hace referencia a la máxima distancia a la que cada punto de un conjunto puede estar respecto al punto mas cercano perteneciente a la misma secuencia. Por lo general, los conjuntos de puntos que presentan una baja discrepancia también poseerán una baja dispersión.
+Donde J es cualquier subconjunto n-rectangular perteneciente a $[0,1]^{d}$, $\mu(J)$ es su medida n-dimensional y A(J) es el número de puntos que pertenecen a la unión entre P y J. En cuanto a la dispersión, hace referencia a la máxima distancia a la que cada punto de un conjunto puede estar respecto al punto mas cercano perteneciente a la misma secuencia. Por lo general, los conjuntos de puntos que presentan una baja discrepancia también poseerán una baja dispersión.
 \\
 
 Se desarrollaron cuatro distintos conjuntos de muestras:
@@ -49,9 +49,9 @@ En cuanto al Lazy PRM, sigue la misma estructura que el PRM clásico, con una di
 En la figura \ref{fig:comparacion_algoritmos} se puede observar el resultado de aplicar un muestreo aleatorio del espacio libre para generar los nodos. Al coger puntos al azar se da lugar a que existan grandes regiones del espacio en la que no existan nodos, mientras que puede haber otras con un mayor numero de puntos de los que son realmente necesarios. Como consecuencia directa de esto, en casos donde el espacio sea limitado, como puede ser mapas con una gran densidad de obstáculos o pasillos estrechos, podría llegar a no encontrarse un camino, al no presentar nodos lo suficientemente cerca como para que exista una conexión entre ellos.
 \\
 
-Para tratar de solucionar esto, se han desarrollado conjuntos determinísticos de puntos, con los que se trata de explorar de manera mas efectiva el espacio libre, además de reducir la discrepancia entre puntos. En conccreto, en este paper se utilizan tres distinos tipos de datos de entrada, conocidos como puntos de Hammersley, puntos de Halton y puntos de Faure. Se hablará mas en profundidad acerca de estos conjuntos en la sección 4.2.
+Para tratar de solucionar esto, se han desarrollado conjuntos deterministas de puntos, con los que se trata de explorar de manera mas efectiva el espacio libre, además de reducir la discrepancia entre puntos. En conccreto, en este paper se utilizan tres distinos tipos de datos de entrada, conocidos como puntos de Hammersley, puntos de Halton y puntos de Faure. Se hablará mas en profundidad acerca de estos conjuntos en la sección 4.2.
 \\
 
-Con esto se consigue solucionar algunos de los problemas que presentan las aproximaciones totalmente aleatorias sin que desaparezcan las ventajas que estos métodos presentan frente a los métodos determinísticos clásicos.
+Con esto se consigue solucionar algunos de los problemas que presentan las aproximaciones totalmente aleatorias sin que desaparezcan las ventajas que estos métodos presentan frente a los métodos deterministas clásicos.
 \\
 \\
