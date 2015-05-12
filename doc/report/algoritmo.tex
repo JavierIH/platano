@@ -112,18 +112,18 @@ A continuación se muestra el pseudocódigo que describe el algoritmo $A^*$ tal 
 
 \begin{algorithm}
 \caption{$A^*$ algorithm(start,target,distances,graph)}\label{A_algorithm}
-\begin{algorithmic}[1]
+\begin{algorithmic}
 \State openset = start
 \State closedset = empty
 \State path = empty
-\State node_connection = empty
+\State node\_connection = empty
 \While {openset != empty and current != start}
 \ForAll{nodes in graph}
  \State Pick the current node neighbours
  \If{neighbour not in openset and not in closedset} 
  \State Calculate the cost value for that neighbour
  \State Add that neighbour to openset
- \State Add current,neighbour to node_connection
+ \State Add current,neighbour to node\_connection
 \EndFor
 \State current = best node in openset
 \State Add current to closedset and remove it from openset
@@ -131,7 +131,7 @@ A continuación se muestra el pseudocódigo que describe el algoritmo $A^*$ tal 
 \If{exist path}
 \While{current != start}
 \State Add current to path
-\State current = node_connection[current]
+\State current = node\_connection[current]
 \EndWhile
 \Else
 \State path = empty
