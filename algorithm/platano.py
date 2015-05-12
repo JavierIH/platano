@@ -67,7 +67,7 @@ cv2.imshow("V-REP", image)
 #
 ##############################################################################################
 
-planner = Planner(image_bin, 'Hammersley', 400, 50, 'dilate', 16)
+planner = Planner(image_bin, 'Hammersley', 500, 100, 'dilate', 16)
 
 
 
@@ -84,6 +84,7 @@ for i, origin in enumerate(planner.nodes):
         if planner.distance_matrix[i, j] > 0:
             cv2.line(show, origin, end, (255, 255, 0))
 cv2.imshow("Connections", show)
+cv2.imwrite("100-500points.png", show)
 cv2.waitKey(500)
 #cv2.destroyAllWindows()
 
