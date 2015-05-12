@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="10cm" height="22cm" viewBox="324 140 191 421" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="330" y="202" width="178.6" height="36" rx="20" ry="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="330" y="202" width="178.6" height="36" rx="20" ry="20"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="419.3" y="223.9">
+      <tspan x="419.3" y="223.9">Procesamiento del mapa</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="325.082" y="282.324" width="188.25" height="36" rx="20" ry="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="325.082" y="282.324" width="188.25" height="36" rx="20" ry="20"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="419.207" y="304.224">
+      <tspan x="419.207" y="304.224">Muestreo del espacio libre</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="330.055" y="363" width="178.4" height="36" rx="20" ry="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="330.055" y="363" width="178.4" height="36" rx="20" ry="20"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="419.255" y="384.9">
+      <tspan x="419.255" y="384.9">Generación del roadmap</tspan>
+    </text>
+  </g>
+  <ellipse style="fill: #000000" cx="419.297" cy="151.434" rx="10" ry="10"/>
+  <g>
+    <rect style="fill: #ffffff" x="338.082" y="441.352" width="162.3" height="52" rx="20" ry="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="338.082" y="441.352" width="162.3" height="52" rx="20" ry="20"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="419.232" y="463.252">
+      <tspan x="419.232" y="463.252">Búsqueda del camino </tspan>
+      <tspan x="419.232" y="479.252">más corto</tspan>
+    </text>
+  </g>
+  <g>
+    <ellipse style="fill: #ffffff" cx="419.352" cy="544.84" rx="15" ry="15"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="419.352" cy="544.84" rx="15" ry="15"/>
+    <ellipse style="fill: #000000" cx="419.352" cy="544.84" rx="10" ry="10"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="419.3,238 419.3,260.162 419.207,260.162 419.207,277.852 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="414.207,270.088 419.207,280.088 424.207,270.088 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="419.207,318.324 419.207,340.662 419.255,340.662 419.255,358.528 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="414.255,350.764 419.255,360.764 424.255,350.764 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="419.255,399 419.255,420.176 419.232,420.176 419.232,436.879 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="414.232,429.116 419.232,439.116 424.232,429.116 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="419.232,493.352 419.232,523.352 419.356,523.352 419.356,498.867 419.352,498.867 419.352,525.368 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="414.352,517.604 419.352,527.604 424.352,517.604 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="419.297,161.434 419.297,195 419.356,195 419.356,172 419.3,172 419.3,197.528 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="414.3,189.764 419.3,199.764 424.3,189.764 "/>
+  </g>
+</svg>

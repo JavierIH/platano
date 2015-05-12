@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="10cm" height="17cm" viewBox="325 140 189 327" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="368.905" y="206.215" width="100.7" height="36" rx="20" ry="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="368.905" y="206.215" width="100.7" height="36" rx="20" ry="20"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="419.255" y="228.115">
+      <tspan x="419.255" y="228.115">Umbralizado</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="336.754" y="278.434" width="164.95" height="52" rx="20" ry="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="336.754" y="278.434" width="164.95" height="52" rx="20" ry="20"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="419.229" y="300.334">
+      <tspan x="419.229" y="300.334">Etiquetado de objetos</tspan>
+      <tspan x="419.229" y="316.334">(Extracción contornos)</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="326.488" y="364.945" width="186" height="36" rx="20" ry="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="326.488" y="364.945" width="186" height="36" rx="20" ry="20"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="419.488" y="386.845">
+      <tspan x="419.488" y="386.845">Simplificado de contornos</tspan>
+    </text>
+  </g>
+  <ellipse style="fill: #000000" cx="419.297" cy="151.434" rx="10" ry="10"/>
+  <g>
+    <ellipse style="fill: #ffffff" cx="419.352" cy="450.495" rx="15" ry="15"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="419.352" cy="450.495" rx="15" ry="15"/>
+    <ellipse style="fill: #000000" cx="419.352" cy="450.495" rx="10" ry="10"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="419.255,242.215 419.255,272.215 419.356,272.215 419.356,247.137 419.229,247.137 419.229,273.962 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="414.229,266.198 419.229,276.198 424.229,266.198 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="419.229,330.434 419.229,360.434 419.356,360.434 419.356,334.945 419.488,334.945 419.488,360.473 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="414.488,352.709 419.488,362.709 424.488,352.709 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="419.297,161.434 419.297,195 419.356,195 419.356,172 419.255,172 419.255,201.743 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="414.255,193.979 419.255,203.979 424.255,193.979 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="419.488,400.945 419.488,430.945 419.356,430.945 419.356,405.495 419.352,405.495 419.352,431.023 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="414.352,423.259 419.352,433.259 424.352,423.259 "/>
+  </g>
+</svg>
