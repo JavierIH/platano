@@ -43,7 +43,7 @@ th, image_bin = cv2.threshold(cv2.cvtColor(image, cv2.COLOR_BGR2GRAY), 60, 255, 
 cv2.circle(image_bin, tuple(start), 2, 0, 40)    
 
 
-cv2.imshow("V-REP", image)
+#cv2.imshow("V-REP", image)
 
 #################################################     PLANNER SETTINGS     ###################
 #
@@ -67,7 +67,7 @@ cv2.imshow("V-REP", image)
 #
 ##############################################################################################
 
-planner = Planner(image_bin, 'Hammersley', 500, 100, 'dilate', 16)
+planner = Planner(image_bin, 'Hammersley', 400, 50, 'dilate', 16)
 
 
 
@@ -84,8 +84,7 @@ for i, origin in enumerate(planner.nodes):
         if planner.distance_matrix[i, j] > 0:
             cv2.line(show, origin, end, (255, 255, 0))
 cv2.imshow("Connections", show)
-cv2.imwrite("100-500points.png", show)
-cv2.waitKey(500)
+#cv2.waitKey(500)
 #cv2.destroyAllWindows()
 
 # Ask for input
@@ -114,8 +113,8 @@ while goal[0] < 0 or goal[0] > planner.environment.x_limit or goal[1] < 0 or goa
     valid_goal = planner.environment.is_valid(tuple(goal))
 
 # Calculate path
-path, points = planner.find_path_and_simplify(tuple(start), tuple(goal))
-#path, points = planner.find_path(tuple(start), tuple(goal))
+#path, points = planner.find_path_and_simplify(tuple(start), tuple(goal))
+path, points = planner.find_path(tuple(start), tuple(goal))
 
 # Draw paths
 show = cv2.cvtColor(planner.environment.image, cv2.COLOR_GRAY2BGR)
@@ -128,6 +127,7 @@ for point in points:
 cv2.circle(show, points[0], 2, (0, 255, 0), 2)
 cv2.circle(show, points[len(points)-1], 2, (255, 255, 255), 2)
 cv2.imshow("Path", show)
+
 cv2.waitKey(0)
 
 
