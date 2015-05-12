@@ -116,14 +116,14 @@ A continuación se muestra el pseudocódigo que describe el algoritmo $A^*$ tal 
 \State openset = start
 \State closedset = empty
 \State path = empty
-\State node\_connection = empty
-\While {openset != empty and current != start}
-\ForAll{nodes in graph}
+\State node connection = empty
+\While {openset != empty and current != target}
+\For{nodes in graph}
  \State Pick the current node neighbours
  \If{neighbour not in openset and not in closedset} 
  \State Calculate the cost value for that neighbour
  \State Add that neighbour to openset
- \State Add current,neighbour to node\_connection
+ \State Add current,neighbour to node connection
 \EndFor
 \State current = best node in openset
 \State Add current to closedset and remove it from openset
@@ -131,7 +131,7 @@ A continuación se muestra el pseudocódigo que describe el algoritmo $A^*$ tal 
 \If{exist path}
 \While{current != start}
 \State Add current to path
-\State current = node\_connection[current]
+\State current = node connection[current]
 \EndWhile
 \Else
 \State path = empty
@@ -151,4 +151,60 @@ Por último, si se ha encontrado un camino, se recorren los nodos almacenados en
 
 \subsubsection{Dijkstra}
 
-Este algoritmo fue desarrollado originalmente por E. Dijkstra en 1956 como un método para encontrar el camino mas corto entre dos nodos, aunque existe otra versión, más utilizada, en la que se busca el camino más corto desde un nodo hasta todos los demás. Se puede optimizar el tiempo de ejecución utilizando una cola de prioridad (estructura de datos en las que a cada elemento se le asocia una prioridad que )
+Este algoritmo fue desarrollado originalmente por E. Dijkstra en 1956 como un método para encontrar el camino mas corto entre dos nodos, aunque existe otra versión, más utilizada, en la que se busca el camino más corto desde un nodo hasta todos los demás. Se puede optimizar el tiempo de ejecución utilizando una cola de prioridad (estructura de datos en las que a cada elemento se le asocia una prioridad que indica el orden en el que se van a devolver). En este algoritmo, el coste de cada nodo (tambien llamado prioridad) se calcula como la distancia entre este y el nodo inicial.\\ 
+
+En este proyecto se ha recurrido a una implementación de la cola de prioridad desarrollada sobre el paquete de python heapq y publicada en un blog sobre python. Dicha implementación  proporciona cuatro funciones:\\
+
+\begin{enumerate}
+\item Constructor: Crea una cola de prioridad vacía o a partir de una estructura ya existente.
+\item insert: Introduce un elemento en la cola de prioridad con su respectiva prioridad. También se puede usar para actualizar la prioridad de un elemento que ya está en la cola.
+\item delete: Elimina un elemento de la cola de prioridad.
+\item pop: Devuelve el elemento de la cola con la prioridad mas baja y lo quita de la cola. 
+\end{enumerate}
+
+A continuación se muestra el pseudocódigo del algoritmo:\\
+
+\begin{algorithm}
+\caption{Dijkstra algorithm(start,target,distances,graph)}\label{dikjstra}
+\begin{algorithmic}
+\State Create a priority queue pq
+\State closedset = empty
+\State path = empty
+\State node connection = empty
+\ForAll{nodes in graph}
+ \If{node == start}
+ \State Add node to pq with priority 0
+ \Else
+ \State Add node to pq with priority 10000
+\EndFor
+\While {pq != empty and current != target}
+\State Store in current the element with lower priority and add it to closedset
+\For{nodes in graph}
+ \State Pick the current node neighbours
+ \If{neighbour not in closedset} 
+ \State Calculate the cost value for that neighbour
+ \State Add that neighbour to pq or update its priority if it is already in
+ \State Add current,neighbour to node connection
+\EndFor
+\EndWhile
+\If{exist path}
+\While{current != start}
+\State Add current to path
+\State current = node connection[current]
+\EndWhile
+\Else
+\State path = empty
+\EndIf
+\State return path
+\end{algorithmic}
+\end{algorithm}
+
+Se le pasan los mismos parámetros que al $A^*$. En este caso solo es necesario un conjunto de nodos, closedset, ya que la cola de prioridad hace la función de openset. Lo primero que se debe hacer es crear la cola y llenarla con todos los nodos del grafo. Al nodo inicial se le asignará una prioridad muy baja y al resto de nodos se les asignará una muy alta.\\
+
+Una vez inicializada la cola de prioridad, se estrae el elemento con la prioridad mas baja, se buscan sus vecinos, se calcula su coste y se introducen en la cola de prioridad, donde la prioridad de cada nodo será su coste. Una vezs se ha hecho esto para todos los vecinos, se vuelve a extraer el nodo con la prioridad mas baja y se repite el proceso.\\
+
+Al igual que antes, si se ha encontrado un camino se irá recorriendo el array node connections para formar la trayectoria, y si no, se devuelve el camino vacío junto con un mensaje indicando que no existe ninguna trayectoria.
+
+\subsection{Simplificación de la trayectoria}
+
+Una vez se extrae el camino más corto utilizando uno de los dos algoritmos implementados, se trata de simplificar la trayectoria final. Para esto, se coge el nodo inicial y otro nodo más, dejando un nodo entre medias. Se comprueba si es posible ir directamente de uno a otro sin chocar con ningun obstáculo y, en caso afirmativo, se elimina el nodo intermedio, al no ser necesario. Se coge el siguente nodo de la trayectoria y se intenta llegar desde el inicial y se repite el proceso hasta que se tenga un nodo al que no se puede llegar. Una vez hecho esto, se parte de dicho nodo y se intenta llegar al siguiente nodo, dejando uno entre medias y se vuelve a empezar con el proceso hasta que la trayectoria cuente con el número mínimo de nodos necesarios para llegar del punto inicial al final sin problema.\\
