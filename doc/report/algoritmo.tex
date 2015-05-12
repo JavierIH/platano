@@ -46,6 +46,7 @@ En ambos casos, la función $r_p(i)$ se obtiene  escribiendo los dígitos de la 
 
 \[ r_p(i) = \frac{a_0}{p} + \frac{a_1}{p^2} + \frac{a_2}{p^3} + \frac{a_3}{p^4} + ...\]
 
+\coment{pasarlo a impersonal}\\
 
 Para nuestra implementación hemos usado una biblioteca, perteneciente al paquete cgkit que nos proporcionaba estos conjuntos de puntos de manera cómoda y rápida, ahorrándonos tiempo de desarrollo y depuración de errores. La figura \ref{fig:muestreo} muestra una comparativa de los distintos métodos de generación de puntos de muestreo en un escenario ficticio.\\
 
@@ -74,3 +75,52 @@ Para nuestra implementación hemos usado una biblioteca, perteneciente al paquet
         \caption{Comparativa de los distintos modos de muestreo del espacio libre}\label{fig:muestreo}
 \end{figure}
 
+\subsection{Busqueda del camino más corto}
+
+Una vez se ha muestreado el espacio libre y se han conectado los nodos entre si para generar un grafo, el siguiente paso es buscar el camino más corto. Para ello se ha decidido implementar dos algoritmos diferentes, el $A^*$ y el Dijkstra. De esta forma se puede realizar un estudio acerca de como afecta a los resultados obtenidos el método que se elija para encontrar la trayectoria óptima.\\
+
+\subsubsection{Algoritmo $A^*$}
+
+El algoritmo $A^*$ fue presentado por primera vez por P. Hart, N. Nilsson y B. Raphael, miembros del Stanford Research Institute, en 1968, como una evolución del algoritmo de Dijkstra. Busca devolver la trayectoria que vaya del nodo inicial al final y que presente un coste más bajo. Mientras va explorando un camino mantiene otras posibles soluciones para cambiar de trayectoria, en caso de que la que se está recorriendo deje de ser óptima. Este algoritmo garantiza que siempre se encontrará una solución, si existe alguna.\\
+
+El coste que se emplea para comparar las distintas posibles trayectorias entre sí viene dado por la suma de dos funciones. La primera es la distancia recorrida entre el nodo inicial y el nodo para el cual se está calculando el coste, mientras que la segunda consiste en una estimación de la distancia que es necesario recorrer para llegar al punto de destino. Aunque esto último se puede representar de diversas maneras, lo mas común es calcular la distancia en linea recta desde el nodo actual hasta el final.\\
+
+A continuación se muestra el pseudocódigo que describe el algoritmo $A^*$ tal y como se ha implementado en este trabajo:\\
+
+\begin{algorithm}
+\caption{$A^*$ algorithm(start,target,distances,graph)}\label{A_algorithm}
+\begin{algorithmic}[1]
+\State openset = start
+\State closedset = {}
+\State path = {}
+\State node_connection = {}
+\While {openset != empty and current != start}
+\ForAll{nodes in graph}
+ \State Pick the current node neighbours
+ \If{neighbour not in openset and not in closedset} 
+ \State Calculate the cost value for that neighbour
+ \State Add that neighbour to openset
+ \State Add current,neighbour to node_connection
+\EndFor
+\State current = best node in openset
+\State Add current to closedset and remove it from openset
+\EndWhile
+\If{exist path}
+\While{current != start}
+\State Add current to path
+\State current = node_connection[current]
+\EndWhile
+\Else
+\State path = {}
+\EndIf
+\State return path
+\end{algorithmic}
+\end{algorithm}  
+
+Al algoritmo se le pasan cuatro parámetros. Start hace referencia al nodo de origen, target es el nodo de destino, graph es un vector donde se almacenan los diversos puntos con los que se ha muestreado el $C_free$ y, por último, dist es una matriz donde se almacena la distancia de cada nodo a todos los demás. Si esos nodos son vecinos la distancia será la separación entre puntos y si no lo son, vale -1.\\
+
+El $A^*$ trabaja con dos subconjuntos de nodos. En openset se almacenarán los ultimos nodos sobre los que se está trabajando (el nodo actual y el último nodo considerado de cada una de las trayectorias alternativas) mientras que en closedset se irán guardando los nodos por los que ya se haya pasado. Además, en node_connection se almacena cada nodo del openset y el nodo contiguo en su trayectoria.\\
+
+Se buscan los vecinos del nodo sobre el que se está trabajando, y, si no pertenecen ni a openset ni a closedset, se calcula su coste y se almacenan en openset. Una vez hecho esto, se elige al nodo de openset con menor coste y se pasa a trabajar sobre este. Este proceso se repite hasta que se llegue al nodo final o hasta que no queden nodos en openset.\\
+
+Por último, si se ha encontrado un camino, se recorren los nodos almacenados en node_connection y se reconstruye el camino. Si no se ha encontrado una trayectoria posible
