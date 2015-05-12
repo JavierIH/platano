@@ -37,15 +37,16 @@ xxx, yyy = simulator.getRobotPosition()
 start[1]=int(metersToPixelsY(xxx))
 start[0]=int(metersToPixelsX(yyy))
     
-#cv2.circle(image, (start[0], start[1]), 2, (0, 0, 0), 2)    
     
 th, image_bin = cv2.threshold(cv2.cvtColor(image, cv2.COLOR_BGR2GRAY), 60, 255, cv2.THRESH_BINARY);
 
+cv2.circle(image_bin, tuple(start), 2, 0, 40)    
+
+
 cv2.imshow("V-REP", image)
-cv2.waitKey(0)
 #1m = 64pix
 
-planner = Planner(image_bin, 'Hammersley', 400, 50, 'dilate', 15)
+planner = Planner(image_bin, 'Hammersley', 400, 50, 'dilate', 16)
 
 show = cv2.cvtColor(planner.environment.image, cv2.COLOR_GRAY2BGR)
 for point in planner.nodes:
