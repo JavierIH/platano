@@ -38,7 +38,7 @@ start[1]=int(metersToPixelsY(xxx))
 start[0]=int(metersToPixelsX(yyy))
     
     
-th, image_bin = cv2.threshold(cv2.cvtColor(image, cv2.COLOR_BGR2GRAY), 60, 255, cv2.THRESH_BINARY);
+th, image_bin = cv2.threshold(cv2.cvtColor(image, cv2.COLOR_BGR2GRAY), 60, 255, cv2.THRESH_BINARY)
 
 cv2.circle(image_bin, tuple(start), 2, 0, 40)    
 

@@ -1,7 +1,7 @@
 import numpy as np
 
 
-__author__ = 'kike'
+__author__ = 'kfrodicio'
 
 
 def a_algorithm(start, goal, points, dist):

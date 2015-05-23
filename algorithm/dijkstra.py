@@ -85,6 +85,7 @@ def dijkstra(start, goal, dist, points):
         if conection == False:
             print "No existe una trayectoria directa entre los nodos inicial y final"
             path=0
+            break
 
     return path
 

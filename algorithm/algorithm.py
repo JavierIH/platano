@@ -12,6 +12,9 @@ from DilatedEnvironment import DilatedEnvironment
 
 from a_algorithm import a_algorithm
 
+from Camera import Camera
+
+
 from dijkstra import dijkstra
 
 __author__ = 'def'
@@ -19,7 +22,11 @@ __author__ = 'def'
 
 def main():
 
-    image_to_load = 'environment_test.png'
+    #Create camera object
+    camera = Camera()
+
+    #image_to_load = 'environment_test.png'
+    image_to_load = camera.get_binary_map()
 
     # Create collision checker
     simple_collision_checker = SimpleCollisionChecker()
@@ -29,14 +36,15 @@ def main():
     env1 = Environment(image_to_load, circle_collision_checker)
     env2 = DilatedEnvironment(image_to_load, collision_checker, 25)
     env = env1
-    cv2.imshow("Loaded img", env.image)
+    #cv2.imshow("Loaded img", env.image)
 
     # Ask for the initial point and the goal point
     print("Los limites del mapa son: ", env.x_limit, env.y_limit)
 
     i_point = np.zeros((2, 1))
-    i_point[0] = int(input("Introduzca la coordenada x del punto inicial:"))
-    i_point[1] = int(input("Introduzca la coordenada y del punto inicial:"))
+    robot = camera.get_robot_pose()
+    i_point[0] = robot[0]
+    i_point[1] = robot[1]
     start = tuple(i_point)
     valid_start = env.is_valid(start)
 
@@ -77,7 +85,7 @@ def main():
     random_points = random_gen.generate_nodes(env, 200)
 
     hammersley_gen = HammersleyNodeGenerator()
-    hammersley_points = hammersley_gen.generate_nodes(env, 200)
+    hammersley_points = hammersley_gen.generate_nodes(env, 500)
 
 
     show = cv2.cvtColor(env.image, cv2.COLOR_GRAY2BGR)
