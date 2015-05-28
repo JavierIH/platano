@@ -8,7 +8,8 @@ class DilatedEnvironment:
 
         # Load image as environment:
         self.image = image
-        self.y_limit, self.x_limit = self.image.shape
+        self.y_limit = self.image.shape[0]
+        self.x_limit = self.image.shape[1]
 
         # Perform dilation of obstacles based on robot
         self.robot_radius = robot_radius

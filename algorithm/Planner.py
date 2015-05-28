@@ -126,7 +126,7 @@ class Planner:
             # Calculate shortest path using dijkstra
             path = dijkstra(0, len(graph_nodes)-1, connection_matrix, graph_nodes)
 
-        return path, graph_nodes
+        return path, [ (int(i[0]), int(i[1])) for i in graph_nodes]
 
     def find_path_and_simplify(self, node_origin, node_goal, algorithm='a_algorithm'):
         path, points= self.find_path(node_origin, node_goal, algorithm)
