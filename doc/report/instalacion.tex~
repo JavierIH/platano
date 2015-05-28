@@ -1,0 +1,34 @@
+\chapter{Instalación y Ejecución del Software}
+\label{app:installing}
+
+\section{Instalación del simulador}
+
+Se requiere la instalación del simulador V-REP. Durante este proyecto se ha utilizado la version 3.2.1. Puede descargarse desde la página oficial siguiendo este link: http://www.coppeliarobotics.com/downloads.html
+
+\section{Programación}
+
+El programa se ha realizado en lenguaje Python, por lo que será necesario tenerlo instalado. Es este caso se ha utilizado la versión 2.7, que puede descargarse desde: https://www.python.org/downloads/
+
+\section{Dependencias adicionales}
+
+Adicionalmente se requerirá tener instalado:
+\begin{itemize}
+	\item NumPy: http://www.numpy.org/
+	\item OpenCV: http://opencv.org/downloads.html 
+	\item cgkit2: http://cgkit.sourceforge.net/download.html
+\end{itemize}
+
+\section{Ejecución de la simulación}
+
+Para ejecutar la simulación se deberán seguir los siguientes pasos:
+\begin{enumerate}
+	\item Abrir V-REP.
+	\item Cargar un escenario del proyecto de la carpeta scenes (escenario1.ttt, escenario2.ttt o escenario3.ttt)
+	\item Arrancar el simulador pulsando play.
+	\item Abrir el archivo platano.py de la carpeta algorithm.
+	\item Configurar los parámetros de la simulación. El planificador puede reconfigurarse en la linea 70 del script platano.py. Siguiendo las instrucciones que se encuentran comentadas entre las lineas 48 y 68, pueden variarse los valores que se le pasan a la función para modificar el experimento.
+	\item Ejecutar el script platano.py
+	\item El script presentará las imágenes correspondietes al plano y pedirá un punto objetivo. Se deberá suministrar las coordenadas del punto final.
+	\item Pulsar enter. Si existe una trayectoria para alanzar el objetivo se mostrará en pantalla.
+	\item Si se ha obtenido una trayectoria válida, pulsar de nuevo enter (sobre la ventana path) para comenzar la simulación.
+\end{enumerate}
